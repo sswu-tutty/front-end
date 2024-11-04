@@ -1,0 +1,25 @@
+.NoteMenu {
+    display: flex;
+    justify-content: space-around;
+    background-color: #F1F1F1; 
+    color : #858585;
+    font-weight: 600;
+}
+
+.tab {
+    padding: 18px 0;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    border-radius: 5px;
+    flex-grow: 1; 
+    text-align: center; 
+}
+
+.tab:hover {
+    background-color: #e0e0e0; 
+}
+
+.tab.active {
+    background-color: #FA945D; 
+    color: #FFFFFF;
+}
