@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom'; // useLocation 임포트
-import './FooterBar.css';
+import './styles/FooterBar.css';
 import inactiveImg from '../assets/inactive_img.png';
 import inactiveNote from '../assets/inactive_note.png';
 import inactiveHome from "../assets/inactive_home.png";

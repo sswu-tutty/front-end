@@ -5,7 +5,7 @@ const Home = () => {
         <div>
             <div>
                 홈페이지
-                <FooterBar />
+                
             </div>
         </div>
     )

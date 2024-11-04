@@ -1,0 +1,46 @@
+.NoteItem {
+    margin: 11px 20px;
+    border-bottom: 1px solid #C8C8C8;
+    display: flex;
+    align-items: center;            
+}
+
+.book_section {
+    cursor: pointer;
+    margin-bottom: 18px;
+    margin-top: 15px;
+    margin-left: 5px;
+}
+
+.title_section {
+    cursor: pointer;
+    margin-left: 25px;
+}
+
+.main_title {
+    color: #737373;
+    font-weight: bold;
+    font-size: 17px;
+    margin-bottom: 7px;
+}
+
+.sub_title {
+    color: #aaaaaa;
+    font-size: 12px;
+}
+
+.etc_section {
+    display: flex;
+    flex-direction: column; 
+    align-items: center;    
+    gap: 10px; 
+    margin-right: 5px;
+    margin-left: auto; /* 오른쪽 정렬을 위해 여백을 자동으로 설정 */
+}
+
+.book_img {
+    margin-left: 5px;
+}
+
+
+

@@ -1,0 +1,27 @@
+.ButtonContainer {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 15px; /* 부모 요소에 오른쪽 마진 추가 */
+    margin-top: 11px;
+    margin-bottom: 5px;
+}
+
+.Button {
+    padding: 10px 20px;
+    color: #737373;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    width: 48px;
+    margin-right: 5px; /* 버튼 여백 추가 */
+}
+
+.Button_on {
+    background-color: #FA945D;
+}
+
+.Button_off {
+    background-color: #f1f1f1;
+}

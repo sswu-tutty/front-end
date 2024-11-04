@@ -1,0 +1,42 @@
+.UnEditing {
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: column;
+    position: relative
+}
+
+.back_btn {
+    display: flex;                /* 가로로 정렬 */
+    align-items: center;          /* 수직 가운데 정렬 */
+    color: #FA945D;
+    font-weight: bolder;
+    margin-top: 5px;
+    font-size: 15px;
+    gap: 8px;
+    cursor: pointer;
+}
+
+
+.title_part {
+    font-size: 19px;
+    margin: 25px 0px;
+    color: #535353;
+    font-weight: bold;
+}
+
+.content_part {
+    margin-bottom: 10px;
+    height: 730px;
+    font-size: 14px;
+    color: #535353;
+    line-height: 2;
+}
+
+.img_part {
+    align-self: flex-end; 
+    width: 45px;
+    height: 45px;
+    margin-bottom: 10px;
+    z-index: 10;
+    cursor: pointer;
+}
