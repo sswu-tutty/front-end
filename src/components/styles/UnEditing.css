@@ -11,7 +11,7 @@
     color: #FA945D;
     font-weight: bolder;
     margin-top: 5px;
-    font-size: 15px;
+    font-size: 17px;
     gap: 8px;
     cursor: pointer;
 }
@@ -34,8 +34,8 @@
 
 .img_part {
     align-self: flex-end; 
-    width: 45px;
-    height: 45px;
+    width: 42px;
+    height: 42px;
     margin-bottom: 10px;
     z-index: 10;
     cursor: pointer;

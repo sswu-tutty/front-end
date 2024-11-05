@@ -7,14 +7,14 @@
 }
 
 .Button {
-    padding: 10px 20px;
+    padding: 10px 15px;
     color: #737373;
     border-radius: 5px;
     cursor: pointer;
     text-align: center;
-    font-size: 16px;
+    font-size: 14px;
     transition: background-color 0.3s;
-    width: 48px;
+    width: 46px;
     margin-right: 5px; /* 버튼 여백 추가 */
 }
 

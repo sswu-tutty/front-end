@@ -1,0 +1,64 @@
+.Editing {
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.btn_section {
+    margin-top: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.back_button {
+    
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+
+.back_button span {
+    color: #FA945D;
+    font-weight: bolder;
+    font-size: 17px;
+    gap: 8px;
+}
+
+.done_btn {
+    color: #FA945D;
+    font-weight: bold;
+    font-size: 17px;
+    cursor: pointer;
+}
+
+.input_section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.input_title {
+    width: 95%;
+    font-size: 19px;
+    margin: 25px 0px;
+    color: #535353;
+    font-weight: bold;
+    border: none;
+    outline: none;
+}
+
+.input_content {
+    margin-bottom: 10px;
+    height: 780px;
+    font-size: 14px;
+    color: #535353;
+    line-height: 1.7;
+    border: none;
+    outline: none;
+    overflow:auto;
+}
