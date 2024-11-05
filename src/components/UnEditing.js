@@ -12,7 +12,7 @@ const UnEditing = ({ detail, setEditing }) => {
         navigate(-1); 
     };
 
-    return (
+    return (    
         <div className="UnEditing">
             <div onClick={handleBackClick} className="back_btn">
                 <img src={Back} />

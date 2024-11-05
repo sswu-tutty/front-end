@@ -5,13 +5,24 @@ import Like from "../assets/like.png";
 import UnLike from "../assets/unlike.png";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import DeleteModal from "./DeleteModal";
 
-const NoteItem = ({id}) => {
-    const [like, setLike] = useState(true);
+const NoteItem = ({id, title, content}) => {
+    const [like, setLike] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    
     const navigate = useNavigate();
 
     const goDetail = () => {
-        navigate(`summaryinquiry/${id}`);
+        navigate(`/summaryinquiry/${id}`);
+    }
+
+    const handleKebab = () => {
+        setIsModalOpen(true);
+    }
+
+    const onClose =() => {
+        setIsModalOpen(false)
     }
 
     return (
@@ -19,16 +30,17 @@ const NoteItem = ({id}) => {
             <img onClick={goDetail} className="book_section" src={BookImg} />
             <div onClick={goDetail} className="title_section">
                 <div className="main_title">
-                    인코더와 디코더의 개념
+                    {title}
                 </div>
                 <div className="sub_title">
-                    트랜스포머 모델은 인코더, 디코더 기반
+                    {content}
                 </div>
             </div>
             <div className="etc_section">
-                <img src={Kebab} />
-                <img onClick={() => setLike(!like)} src={ like ? Like : UnLike} />
+                <img className="on_heart" onClick={handleKebab} src={Kebab} />
+                <img className="on_kebab" onClick={() => setLike(!like)} src={ like ? Like : UnLike} />
             </div>
+            <DeleteModal isModalOpen={isModalOpen} onClose={onClose}/>
         </div>
     )
 }

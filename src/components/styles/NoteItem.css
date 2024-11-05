@@ -42,5 +42,13 @@
     margin-left: 5px;
 }
 
+.on_heart {
+    cursor: pointer;
+}
+
+.on_kebab {
+    cursor: pointer;
+}
+
 
 
