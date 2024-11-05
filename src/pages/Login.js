@@ -9,7 +9,6 @@ const Login = () => {
     const [full, setFull] = useState(false);
     const [popup, setPopup] = useState(false);
     const [popupMsg, setPopupMsg] = useState('존재하지 않는 정보입니다')
-    // const dispatch = useDispatch();
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
 
@@ -67,16 +66,12 @@ const Login = () => {
                                 value={inputValue}
                                 onChange={handleInputChange}
                             />
-                            {/* <span onClick={handlePwState}>
-                                <img src={Eye} alt='비밀번호 숨김' />
-                            </span> */}
                         </div>
                     </div>
 
                     <button
                         className={`submit-button ${full ? 'active' : ''}`}
                         disabled={!isButtonActive}
-                    // onClick={() => { onLogin() }}
                     >
                         로그인
                     </button>
