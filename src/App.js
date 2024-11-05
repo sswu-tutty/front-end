@@ -11,7 +11,7 @@ import FooterBar from './components/FooterBar';
 
 function App() {
   //로그인페이지 사용하고 싶으면 false로 변경후 사용
-  const [login, setLogin] = useState(true);
+  const [login, setLogin] = useState(false);
 
   return (
     <div className='App'>
