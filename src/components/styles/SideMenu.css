@@ -1,0 +1,78 @@
+/* 오버레이 배경 */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(8px); /* 블러 효과 */
+    z-index: 999; /* 사이드 메뉴 위에 위치 */
+}
+
+/* 사이드 메뉴 스타일 */
+.side-menu {
+    position: fixed;
+    top: 0;
+    left: -300px;
+    width: 250px;
+    height: 100vh;
+    background-color: white;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: left 0.3s ease; /* 슬라이드 애니메이션 */
+    z-index: 1000;
+
+
+    .record{
+        margin: 15px 0;
+        margin-bottom: 0;
+    }
+}
+
+.side-menu.open {
+    left: 0; 
+
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    align-self: flex-end;
+    margin-bottom: 20px;
+}
+
+.current-chat {
+    background-color: #f1f1f1;
+    border-radius: 10px;
+    padding: 10px;
+
+    p{
+        color: #8C8C8C;
+        font-size: 15px;
+    }
+}
+.previous-chat{
+    padding: 0 10px;
+
+    p{
+        color: #8C8C8C;
+        padding-top: 3px;
+        font-size: 15px;
+    }
+
+}
+
+.current-chat p, .previous-chat p {
+    margin: 5px 0;
+}
+h3{
+    color: #4F4F4F;
+    font-weight: 500;
+    font-size: 18px;
+}
