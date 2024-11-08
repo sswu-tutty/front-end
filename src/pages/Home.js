@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import FooterBar from '../components/FooterBar';
 import menu from "../assets/menu.png";
 import send from "../assets/send.png";
+import SideMenu from '../components/SideMenu';
 
 const Home = () => {
     // 메시지 없을 때
@@ -29,6 +30,11 @@ const Home = () => {
     const [inputText, setInputText] = useState('');
     const [showQuiz, setShowQuiz] = useState(false);
     const [showSummary, setShowSummary] = useState(false);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+    const toggleMenu = () => {
+        setIsMenuOpen(!isMenuOpen);
+    };
 
     const addMessage = () => {
         if (inputText.trim() !== '') {
@@ -64,7 +70,7 @@ const Home = () => {
     return (
         <div className="Home_wrap container">
             <header className="header">
-                <img src={menu} className="menu-img" alt="Menu" />
+                <img src={menu} className="menu-img" alt="Menu" onClick={toggleMenu} />
                 <div className='buttons'>
                     {messages.length > 0 && (
                         <>
@@ -73,8 +79,10 @@ const Home = () => {
                         </>
                     )}
                 </div>
-
             </header>
+
+            <SideMenu isOpen={isMenuOpen} toggleMenu={toggleMenu} />
+
 
             <div className="chat-container">
                 {messages.length === 0 ? (
