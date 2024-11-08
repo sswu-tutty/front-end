@@ -1,0 +1,21 @@
+.Button {
+    padding: 10px 15px;
+    color: #737373;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    font-size: 14px;
+    width: 46px;
+}
+
+.Button_on {
+    background-color: #FA945D;
+    color: #FFFFFF;
+}
+
+.Button_off {
+    background-color: #f1f1f1;
+}
+
+
+

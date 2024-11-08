@@ -1,6 +1,6 @@
 import { useState } from "react";
-import "./styles/Editing.css";
-import Back from "../assets/back1.png";
+import "../styles/Editing.css";
+import Back from "../../assets/back1.png";
 
 const Editing = ({ detail, setEditing }) => {
     const [title, setTitle] = useState(detail.title || "");

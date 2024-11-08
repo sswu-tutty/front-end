@@ -3,7 +3,6 @@ import "./styles/NoteMenu.css";
 
 const NoteMenu = ({activeTab, setActiveTab}) => {
     
-
     return (
         <header className="NoteMenu">
             <div 

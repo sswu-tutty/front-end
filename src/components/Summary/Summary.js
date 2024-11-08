@@ -3,7 +3,7 @@ import NoteItem from "./NoteItem";
 const Summary = ({ mockData }) => {
     return (
         <div>
-            {mockData.map((it) => ( // 중괄호로 감싸기
+            {mockData.map((it) => (
                 <NoteItem key={it.id} {...it} />
             ))}
         </div>

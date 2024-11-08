@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import FooterBar from "../components/FooterBar";
-import UnEditing from "../components/UnEditing";
-import Editing from "../components/Editing"; // Editing 컴포넌트 추가
+import UnEditing from "../components/Summary/UnEditing";
+import Editing from "../components/Summary/Editing"; // Editing 컴포넌트 추가
 
 const SummaryInquiry = () => {
     const { id } = useParams();
@@ -13,7 +12,6 @@ const SummaryInquiry = () => {
     
     const [editing, setEditing] = useState(false);
    
-    console.log(id);
 
     return (
         <div>

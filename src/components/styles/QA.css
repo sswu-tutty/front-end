@@ -1,0 +1,64 @@
+.QA {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.question_section {
+    width: 480px;
+}
+
+.question {
+    background-color: #E5E5E5;
+    padding: 20px 25px;
+    border-radius: 10px;
+    margin: 0px 20px;
+    margin-top: 20px;
+}
+
+.answer_section {
+    width: 480px;
+    height: 670px; /* 고정 높이 설정 */
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.answer {
+    display: flex;
+    flex-direction: row; /* 세로로 정렬 */
+    align-items: flex-start; /* 왼쪽 정렬 */
+    border-radius: 10px;
+    padding: 20px 25px;
+    margin: 10px 20px;
+    background-color: #F1F1F1;
+    color: #535353;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.answer_num {
+    font-size: 15px;
+    margin-right: 10px;
+    margin-bottom: 10px; /* id와 text 사이에 간격을 둡니다 */
+}
+
+.answer_text {
+    font-size: 15px; /* 필요에 따라 텍스트 크기 조정 */
+}
+
+.answer.active {
+    background-color: #FA945D; 
+    color: #FFFFFF;
+}
+
+
+
+.answer.false {
+    background-color: #F1F1F1;
+    color: #535353;
+    border: 3px solid #CE4949;
+}
+
+
