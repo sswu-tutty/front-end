@@ -1,0 +1,58 @@
+.FalseStatus {
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    flex-direction: column;
+}
+
+.header {
+    width: 100%;
+    border-bottom: 1px solid #C8C8C8;
+    color: #737373;
+    padding-bottom: 20px;
+}
+
+.title {
+    font-size: 17px;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.page_section {
+    font-size: 15px;
+    text-align: center;
+}
+
+.page_btn {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.left_btn, .right_btn {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+    
+}
+
+.left_btn {
+    margin-right: 100px;
+}
+
+.right_btn {
+    margin-left: 100px;
+}
+
+.scroll_section {
+    margin-top: 0px;
+    width: 100%; /* 부모 컨테이너의 너비 설정 */
+    height: 670px; /* 부모 컨테이너의 높이 설정 */
+    overflow: auto; /* 컨테이너 내용이 페이지를 벗어날 때 스크롤 활성화 */
+    scrollbar-width: none;
+}

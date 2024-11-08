@@ -3,21 +3,21 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh; /* 화면 전체 높이를 채우도록 설정 */
+  height: 100vh;
   margin: 0;
 }
 
 @media (min-width: 650px) {
   .App {
       width: 520px;
-      height: 100vh; /* 화면 전체 높이를 채우도록 설정 */
+      height: 100vh;
   }
 }
 
 @media (max-width: 650px) {
   .App {
       width: 80vw;
-      height: 100vh; /* 화면 전체 높이를 채우도록 설정 */
+      height: 100vh;
   }
 }
 

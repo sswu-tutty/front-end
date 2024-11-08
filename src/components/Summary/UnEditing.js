@@ -1,6 +1,6 @@
-import EditImg from "../assets/edit.png";
-import "./styles/UnEditing.css";
-import Back from "../assets/back1.png";
+import EditImg from "../../assets/edit.png";
+import "../styles/UnEditing.css";
+import Back from "../../assets/back1.png";
 import { useNavigate } from "react-router-dom";
 
 

@@ -26,14 +26,16 @@
 
 .content_part {
     margin-bottom: 10px;
-    height: 730px;
+    height: 700px;
     font-size: 14px;
     color: #535353;
     line-height: 2;
 }
 
 .img_part {
-    align-self: flex-end; 
+    position: absolute; 
+    bottom: 60px; 
+    right: 20px; 
     width: 42px;
     height: 42px;
     margin-bottom: 10px;
