@@ -5,20 +5,25 @@ import ImgUpload from './pages/ImgUpload';
 import Note from './pages/Note';
 import MyPage from './pages/MyPage';
 import Login from './pages/Login';
+import Signup from './pages/Signup';
 import { useState } from 'react';
 import SummaryInquiry from './pages/SummaryInquiry';
 import FooterBar from './components/FooterBar';
 
 function App() {
   //로그인페이지 사용하고 싶으면 false로 변경후 사용
-  const [login, setLogin] = useState(false);
+  const [login, setLogin] = useState(true);
 
   return (
     <div className='App'>
       <BrowserRouter>
         {!login ? (
           // 로그인 전
-          <Login setLogin={setLogin} />
+          <Routes>
+            <Route path="/login" element={<Login setLogin={setLogin} />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="*" element={<Navigate to="/login" replace />} />
+          </Routes>
         ) : (
           // 로그인 후
           <div id="root" >
