@@ -1,0 +1,29 @@
+.splash-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #ffffff;
+    text-align: center;
+    position: relative;
+}
+
+.splash-logo {
+    width: 100px;
+    margin-bottom: 20px;
+}
+
+.splash-screen .text {
+    position: absolute;
+    bottom: 50px;
+    width: 100%;
+    text-align: center;
+}
+
+.splash-screen p {
+    font-size: 16px;
+    color: #424242;
+    margin: 0;
+    line-height: 1.5;
+}
