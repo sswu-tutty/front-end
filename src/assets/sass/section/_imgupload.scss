@@ -20,14 +20,37 @@
         text-align: center;
         cursor: pointer;
 
+
+
         .upload-icon {
             width: 80px;
             margin-bottom: 10px;
         }
 
+        .default-icon {
+            width: 80px;
+            /* 기본 아이콘 크기 */
+            // height: 100px;
+        }
+
+        .uploaded-icon {
+            min-width: 200px;
+            width: 60%;
+            /* 업로드된 이미지 크기 */
+            object-fit: cover;
+            /* 이미지 비율 유지 */
+        }
+
         p {
             color: #737373;
             font-size: 16px;
+        }
+
+        .file-name {
+            color: #0066cc;
+            font-size: 16px;
+            text-decoration: underline;
+            cursor: pointer;
         }
     }
 
