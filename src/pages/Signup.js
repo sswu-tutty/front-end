@@ -4,6 +4,7 @@ import axios from 'axios';
 
 
 const Signup = () => {
+    const URL = 'http://52.78.72.117:8080';
     const [email, setEmail] = useState('');
     const [inputValue, setInputValue] = useState('');
     const [inputName, setInputName] = useState('');
@@ -59,7 +60,7 @@ const Signup = () => {
         };
 
         try {
-            const response = await axios.post('http://52.78.72.117:8080/api/users/register', userData);
+            const response = await axios.post(`${URL}/api/users/register`, userData);
             console.log('회원가입 성공:', response.data);
             navigate('/login');
         } catch (error) {
