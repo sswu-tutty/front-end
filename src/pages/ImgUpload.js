@@ -1,5 +1,5 @@
 import FooterBar from "../components/FooterBar";
-
+import axios from 'axios';
 import React, { useState, useRef } from 'react';
 import uploadIcon from '../assets/upload_img.png';
 import Modal from '../components/ImgModal';
@@ -21,21 +21,6 @@ const ImgUpload = () => {
     const handleUploadClick = () => {
         if (fileInputRef.current) {
             fileInputRef.current.click();
-        }
-    };
-
-    const handleFileChange = (event) => {
-        const file = event.target.files[0];
-        if (file) {
-            if (file.type.startsWith('image/')) {
-                // 이미지 파일이면 미리보기로 표시
-                setImageSrc(URL.createObjectURL(file));
-                setFileName(''); // 파일 이름 초기화
-            } else {
-                // 이미지가 아닌 파일이면 파일 이름만 표시
-                setImageSrc(null);
-                setFileName(file.name);
-            }
         }
     };
 
@@ -64,6 +49,101 @@ const ImgUpload = () => {
             setShowTextScreen(true);
         }, 2000);
     };
+
+    // 네이버 ocr
+    const convertFileToBase64 = (file) => {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result.split(',')[1]);
+            reader.onerror = (error) => reject(error);
+        });
+    };
+
+    const callOCRApi = async (base64Image) => {
+        const apiUrl = 'https://s9uo8hlhlf.apigw.ntruss.com/custom/v1/36012/f9e520a521f592693af176d36451426be6d8385580b367ef22bb63e6f3297dd8/general';
+        const secretKey = 'VFZKdnByanlUZFJsa0tVR1JsUUhwS0daYnFrTkF5WkY=';
+
+        try {
+            const response = await axios.post(
+                apiUrl,
+                {
+                    images: [
+                        {
+                            format: 'jpg',
+                            name: 'upload',
+                            data: base64Image,
+                            url: null
+                        }
+                    ],
+                    lang: 'ko',
+                    requestId: 'string',
+                    resultType: 'string',
+                    timestamp: new Date().getTime(),
+                    version: 'V1'
+                },
+                {
+                    headers: {
+                        'X-OCR-SECRET': secretKey,
+                        'Content-Type': 'application/json',
+
+                    },
+                }
+            );
+
+            if (response.data && response.data.images) {
+                const inferText = response.data.images
+                    .flatMap(image => image.fields || [])
+                    .map(field => field.inferText)
+                    .join('\n');
+
+                setTextData(inferText);
+                setShowTextScreen(true);
+            } else {
+                throw new Error('OCR 결과가 유효하지 않습니다.');
+            }
+        } catch (error) {
+            console.error('OCR 요청 실패:', error.response?.data || error.message);
+            alert('OCR 요청 중 오류가 발생했습니다. 다시 시도해주세요.');
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    const handleFileChange = async (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            if (file.type.startsWith('image/')) {
+                // 이미지 파일인 경우
+                setImageSrc(URL.createObjectURL(file));
+                setFileName('');
+                setIsLoading(true);
+                try {
+                    const base64Image = await convertFileToBase64(file);
+                    await callOCRApi(base64Image);
+                } catch (error) {
+                    console.error('파일 변환 오류:', error);
+                    alert('이미지 처리 중 오류가 발생했습니다.');
+                    setIsLoading(false);
+                }
+            } else {
+                // 이미지가 아닌 다른 파일일 경우
+                setImageSrc(null);
+                setFileName(file.name);
+                setIsLoading(true);
+                try {
+                    const base64File = await convertFileToBase64(file);
+                    await callOCRApi(base64File);  // OCR API로 다른 파일도 처리
+                } catch (error) {
+                    console.error('파일 변환 오류:', error);
+                    alert('파일 처리 중 오류가 발생했습니다.');
+                    setIsLoading(false);
+                }
+            }
+        }
+    };
+
+
 
     return (
         <div className="Image_wrap container">
