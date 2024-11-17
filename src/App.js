@@ -6,7 +6,7 @@ import Note from './pages/Note';
 import MyPage from './pages/MyPage';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import SummaryInquiry from './pages/SummaryInquiry';
 import FooterBar from './components/FooterBar';
 import QuizInquiry from './pages/QuizInquiry';
@@ -16,6 +16,11 @@ import ResultCheck from './pages/ResultCheck';
 function App() {
   //로그인페이지 사용하고 싶으면 false로 변경후 사용
   const [login, setLogin] = useState(true);
+
+  // login 값이 변경될 때마다 콘솔로 확인
+  useEffect(() => {
+    console.log('login 상태:', login);
+  }, [login]);
 
   return (
     <div className='App'>

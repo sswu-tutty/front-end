@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Logo from "../assets/logo.png";
 import Start from "../components/Start";
+import axios from 'axios';
 
-const Login = () => {
+const Login = ({ setLogin }) => {
+    const URL = 'http://52.78.72.117:8080';
     const [email, setEmain] = useState('')
     const [inputValue, setInputValue] = useState('');
     const [full, setFull] = useState(false);
@@ -11,6 +13,8 @@ const Login = () => {
     const [popupMsg, setPopupMsg] = useState('존재하지 않는 정보입니다')
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('');
+
 
     const [pwType, setpwType] = useState({
         type: "password",
@@ -44,13 +48,42 @@ const Login = () => {
             setLoading(false);
         }, 2000); // 2초 후 로딩 해제
 
-        return () => clearTimeout(timer); 
+        return () => clearTimeout(timer);
     }, []);
 
     // 로딩 화면을 표시할 때
     if (loading) {
         return <Start />;
     }
+
+    // 로그인 API 연결
+    const handleLogin = async () => {
+        const userData = {
+            userId: email,
+            password: inputValue,
+        };
+
+        try {
+            const response = await axios.post(`${URL}/api/users/login`, userData);
+            console.log('로그인 성공:', response.data);
+            setLogin(true);
+
+
+            // 토큰이 응답에 포함되어 있을 때
+            if (response.data.token) {
+                // 토큰 로컬스토리지에 저장
+                localStorage.setItem('authToken', response.data.token);
+                console.log('토큰 저장됨:', response.data.token);
+
+            }
+        } catch (error) {
+            if (error.response && error.response.status === 401) {
+                setError('로그인 정보가 올바르지 않습니다.');
+            } else {
+                setError('로그인 중 오류가 발생했습니다.');
+            }
+        }
+    };
 
 
     return (
@@ -86,6 +119,7 @@ const Login = () => {
                     <button
                         className={`submit-button ${full ? 'active' : ''}`}
                         disabled={!isButtonActive}
+                        onClick={handleLogin}
                     >
                         로그인
                     </button>
