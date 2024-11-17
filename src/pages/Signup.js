@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+
 
 const Signup = () => {
     const [email, setEmail] = useState('');
     const [inputValue, setInputValue] = useState('');
     const [inputName, setInputName] = useState('');
-    const [confirmValue, setConfirmValue] = useState(''); // 비밀번호 확인 입력값
+    const [confirmValue, setConfirmValue] = useState('');
     const [full, setFull] = useState(false);
-    const [popup, setPopup] = useState(false);
-    const [popupMsg, setPopupMsg] = useState('존재하지 않는 정보입니다');
-    const [passwordMatch, setPasswordMatch] = useState(null); // 비밀번호 일치 상태
+    const [passwordMatch, setPasswordMatch] = useState(null);
     const navigate = useNavigate();
-    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
+
 
     const [pwType, setPwType] = useState({
         type: "password",
@@ -19,12 +20,12 @@ const Signup = () => {
     });
 
     useEffect(() => {
-        if (inputValue !== '' && email !== '' && inputName !== '') {
+        if (inputValue !== '' && email !== '' && inputName !== '' && confirmValue !== '') {
             setFull(true);
         } else {
             setFull(false);
         }
-    }, [inputValue, email, inputName]);
+    }, [inputValue, email, inputName, confirmValue]);
 
     // 비밀번호 입력값 변경 핸들러
     const handleInputChange = (e) => {
@@ -47,7 +48,28 @@ const Signup = () => {
         }));
     };
 
-    const isButtonActive = inputValue.length > 0;
+    const isButtonActive = full && passwordMatch;
+
+    // 회원가입 api 연결
+    const handleSignup = async () => {
+        const userData = {
+            userId: email,
+            password: inputValue,
+            name: inputName,
+        };
+
+        try {
+            const response = await axios.post('http://52.78.72.117:8080/api/users/register', userData);
+            console.log('회원가입 성공:', response.data);
+            navigate('/login');
+        } catch (error) {
+            if (error.response && error.response.status === 400) {
+                setError('이미 존재하는 아이디입니다.');
+            } else {
+                setError('회원가입 중 오류가 발생했습니다.');
+            }
+        }
+    };
 
     return (
         <div>
@@ -96,6 +118,7 @@ const Signup = () => {
                         <p>비밀번호확인</p>
                         <div>
                             <input
+                                value={confirmValue}
                                 type={pwType.type}
                                 className='pw'
                                 placeholder='영문, 숫자 포함 8자 이상'
@@ -115,22 +138,14 @@ const Signup = () => {
                     </div>
 
                     <button
-                        className={`submit-button ${full ? 'active' : ''}`}
+                        className={`submit-button ${full && passwordMatch ? 'active' : ''}`}
                         disabled={!isButtonActive}
+                        onClick={handleSignup}
                     >
                         완료
                     </button>
                 </div>
 
-                {popup ? (
-                    <div className="popup_wrap">
-                        <div className="pop">
-                            <img src={Error} alt="error img" />
-                            <h3>{popupMsg}</h3>
-                            <button onClick={() => { setPopup(false); }}>확인</button>
-                        </div>
-                    </div>
-                ) : null}
             </div>
         </div>
     );
