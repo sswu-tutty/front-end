@@ -66,6 +66,7 @@ const Signup = () => {
         } catch (error) {
             if (error.response && error.response.status === 400) {
                 setError('이미 존재하는 아이디입니다.');
+                alert('이미 존재하는 아이디입니다.')
             } else {
                 setError('회원가입 중 오류가 발생했습니다.');
             }
