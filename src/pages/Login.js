@@ -79,6 +79,7 @@ const Login = ({ setLogin }) => {
         } catch (error) {
             if (error.response && error.response.status === 401) {
                 setError('로그인 정보가 올바르지 않습니다.');
+                alert('로그인 정보가 올바르지 않습니다.');
             } else {
                 setError('로그인 중 오류가 발생했습니다.');
             }
