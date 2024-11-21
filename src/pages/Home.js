@@ -1,71 +1,93 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import FooterBar from '../components/FooterBar';
 import menu from "../assets/menu.png";
 import send from "../assets/send.png";
 import SideMenu from '../components/SideMenu';
+import axios from 'axios';
 
 const Home = () => {
-    // 메시지 없을 때
-    // const [messages, setMessages] = useState([]);
-    // 메시지 전송시
-    const [messages, setMessages] = useState([
-        {
-            text:
-                "자연어 처리(NLP)에서 인코더(Encoder)는 입력 데이터를 특정한 형식의 벡터로 변환하는 역할을 하는 신경망의 한 부분입니다. 주로 Transformer 모델이나 seq2seq(시퀀스- 투 - 시퀀스) 구조에서 사용되며,텍스트를 숫자로 이루어진 벡터로 변환해모델이 이해할 수 있게 합니다.", sent: false
-        },
-        { text: "안녕하세요!", sent: true },
-        {
-            text:
-                "자연어 처리(NLP)에서 인코더(Encoder)는 입력 데이터를 특정한 형식의 벡터로 변환하는 역할을 하는 신경망의 한 부분입니다. 주로 Transformer 모델이나 seq2seq(시퀀스- 투 - 시퀀스) 구조에서 사용되며,텍스트를 숫자로 이루어진 벡터로 변환해모델이 이해할 수 있게 합니다.", sent: false
-        },
-        { text: "안녕하세요!", sent: true },
-        {
-            text:
-                "자연어 처리(NLP)에서 인코더(Encoder)는 입력 데이터를 특정한 형식의 벡터로 변환하는 역할을 하는 신경망의 한 부분입니다. 주로 Transformer 모델이나 seq2seq(시퀀스- 투 - 시퀀스) 구조에서 사용되며,텍스트를 숫자로 이루어진 벡터로 변환해모델이 이해할 수 있게 합니다.", sent: false
-        },
-        { text: "안녕하세요!", sent: true }
+    const URL = 'http://52.78.72.117:8080';
+    const token = localStorage.getItem("authToken");
 
-    ]);
-
+    const [messages, setMessages] = useState([]);
     const [inputText, setInputText] = useState('');
-    const [showQuiz, setShowQuiz] = useState(false);
-    const [showSummary, setShowSummary] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [chatroomId, setChatroomId] = useState(null);
 
+    // 메시지 컨테이너의 끝을 참조할 수 있도록 useRef 사용
+    const messagesEndRef = useRef(null);
+
+    // 메뉴 토글
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     };
 
-    const addMessage = () => {
-        if (inputText.trim() !== '') {
-            setMessages([...messages, { text: inputText, sent: true }]);
-            setInputText('');
+    // 채팅방 시작 시 순차적으로 chatroomId 설정
+    const startChat = () => {
+        const storedChatroomId = localStorage.getItem('chatroomId');
+        const newChatroomId = storedChatroomId ? parseInt(storedChatroomId) + 1 : 1; // 첫 채팅은 1부터 시작
+        setChatroomId(newChatroomId);
+        localStorage.setItem('chatroomId', newChatroomId);
+        setMessages([]);
+    };
+
+    // 챗봇 API 호출
+    const callChatbotAPI = async (question) => {
+        if (!chatroomId) return;
+
+        try {
+            // API 호출
+            const response = await axios.post(`${URL}/api/ask`, new URLSearchParams({
+                'chatroomId': chatroomId.toString(),
+                'question': question
+            }), {
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            // 서버 응답 처리
+            const { answer } = response.data;
+            setMessages([
+                ...messages,
+                { text: question, sent: true }, // 사용자가 보낸 메시지 추가
+                { text: answer, sent: false }   // 챗봇의 응답 추가
+            ]);
+        } catch (error) {
+            console.error('API 호출 오류:', error);
         }
     };
 
-    // 요약본 생성 메시지 추가
-    const addSummaryMessage = () => {
-        setShowSummary(!showSummary);
-        setMessages([
-            ...messages,
-            { text: "요약본이 생성되었습니다.", sent: false } // 요약 메시지 추가
-        ]);
+    // 메시지 추가
+    const addMessage = () => {
+        if (inputText.trim() !== '') {
+            setMessages([...messages, { text: inputText, sent: true }]); // 사용자 메시지 추가
+            setInputText(''); // 입력 필드 초기화
+
+            // 챗봇 API 호출
+            callChatbotAPI(inputText);
+        }
     };
 
-    // 퀴즈 생성 메시지 추가
-    const addQuizMessage = () => {
-        setShowQuiz(!showQuiz);
-        setMessages([
-            ...messages,
-            { text: "퀴즈가 생성되었습니다.", sent: false } // 퀴즈 메시지 추가
-        ]);
-    };
-
+    // 입력값 변경 시 처리
     const handleInputChange = (e) => {
         setInputText(e.target.value);
-        e.target.style.height = 'auto'; // 높이를 초기화하여 스크롤 높이를 계산
-        e.target.style.height = `${e.target.scrollHeight - 16}px`; // 내용에 맞게 높이 조정
+        e.target.style.height = 'auto';
+        e.target.style.height = `${e.target.scrollHeight - 16}px`;
     };
+
+    // 페이지 로드 시 채팅방 시작
+    useEffect(() => {
+        startChat();
+    }, []);
+
+    // 메시지가 변경될 때마다 스크롤을 맨 아래로 이동
+    useEffect(() => {
+        if (messagesEndRef.current) {
+            messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
+    }, [messages]);
 
     return (
         <div className="Home_wrap container">
@@ -74,15 +96,14 @@ const Home = () => {
                 <div className='buttons'>
                     {messages.length > 0 && (
                         <>
-                            <button className='sum-message' onClick={addSummaryMessage}>요약본 생성</button>
-                            <button className='quiz-mesaage' onClick={addQuizMessage}>퀴즈 생성</button>
+                            <button className='sum-message'>요약본 생성</button>
+                            <button className='quiz-mesaage'>퀴즈 생성</button>
                         </>
                     )}
                 </div>
             </header>
 
             <SideMenu isOpen={isMenuOpen} toggleMenu={toggleMenu} />
-
 
             <div className="chat-container">
                 {messages.length === 0 ? (
@@ -97,6 +118,7 @@ const Home = () => {
                                 {msg.text}
                             </div>
                         ))}
+                        <div ref={messagesEndRef} />
                     </div>
                 )}
             </div>
@@ -107,11 +129,10 @@ const Home = () => {
                     onChange={handleInputChange}
                     rows="1"
                     placeholder="메시지 보내기"
-                    style={{ resize: "none", overflow: "hidden" }} // 크기 조절 비활성화 및 스크롤 숨김
+                    style={{ resize: "none", overflow: "hidden" }}
                 />
                 <img src={send} onClick={addMessage} alt="Send" />
             </div>
-
 
             <FooterBar />
         </div>
