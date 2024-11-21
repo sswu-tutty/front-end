@@ -9,7 +9,6 @@
     height: 100vh;
 
 
-
     .home-container {
         display: flex;
         flex-direction: column;
@@ -157,6 +156,10 @@
             width: 24px;
             height: 24px;
             padding: 8px;
+
+            :hover{
+                background-color: #FA945D;
+            }
         }
     }
 
@@ -192,13 +195,4 @@
             }
         }
     }
-
-
-
-
-
-
-
-
-
 }
