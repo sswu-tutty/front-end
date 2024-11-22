@@ -14,29 +14,30 @@ const Home = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [chatroomId, setChatroomId] = useState(null);
 
-    // 메시지 컨테이너의 끝을 참조할 수 있도록 useRef 사용
     const messagesEndRef = useRef(null);
 
-    // 메뉴 토글
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     };
 
-    // 채팅방 시작 시 순차적으로 chatroomId 설정
+    // 새로운 대화 시작 시 chatroomId 설정
     const startChat = () => {
         const storedChatroomId = localStorage.getItem('chatroomId');
-        const newChatroomId = storedChatroomId ? parseInt(storedChatroomId) + 1 : 1; // 첫 채팅은 1부터 시작
+        const newChatroomId = storedChatroomId ? storedChatroomId : 1;
         setChatroomId(newChatroomId);
         localStorage.setItem('chatroomId', newChatroomId);
         setMessages([]);
     };
 
-    // 챗봇 API 호출
-    const callChatbotAPI = async (question) => {
-        if (!chatroomId) return;
+    // 과거 대화 선택 시, 기존 chatroomId 유지
+    const loadPreviousChat = (chatroomId) => {
+        setChatroomId(chatroomId);
+        console.log(chatroomId)
+        localStorage.setItem('chatroomId', chatroomId);
+    };
 
+    const callChatbotAPI = async (question) => {
         try {
-            // API 호출
             const response = await axios.post(`${URL}/api/ask`, new URLSearchParams({
                 'chatroomId': chatroomId.toString(),
                 'question': question
@@ -47,46 +48,64 @@ const Home = () => {
                 }
             });
 
-            // 서버 응답 처리
             const { answer } = response.data;
-            setMessages([
-                ...messages,
-                { text: question, sent: true }, // 사용자가 보낸 메시지 추가
-                { text: answer, sent: false }   // 챗봇의 응답 추가
+            setMessages((prevMessages) => [
+                ...prevMessages,
+                { text: question, sent: true },
+                { text: answer, sent: false }
             ]);
         } catch (error) {
             console.error('API 호출 오류:', error);
         }
     };
 
-    // 메시지 추가
     const addMessage = () => {
         if (inputText.trim() !== '') {
-            setMessages([...messages, { text: inputText, sent: true }]); // 사용자 메시지 추가
-            setInputText(''); // 입력 필드 초기화
+            // 중복된 질문이 있는지 확인
+            const isDuplicate = messages.some((msg) => msg.text === inputText && msg.sent === true);
 
-            // 챗봇 API 호출
-            callChatbotAPI(inputText);
+            if (!isDuplicate) {
+                setMessages((prevMessages) => [
+                    ...prevMessages,
+                    { text: inputText, sent: true }
+                ]);
+                setInputText('');
+                callChatbotAPI(inputText);
+            }
         }
     };
 
-    // 입력값 변경 시 처리
     const handleInputChange = (e) => {
         setInputText(e.target.value);
         e.target.style.height = 'auto';
         e.target.style.height = `${e.target.scrollHeight - 16}px`;
     };
 
-    // 페이지 로드 시 채팅방 시작
     useEffect(() => {
-        startChat();
+        startChat();  // 새로운 대화 시작
     }, []);
 
-    // 메시지가 변경될 때마다 스크롤을 맨 아래로 이동
     useEffect(() => {
         if (messagesEndRef.current) {
             messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
         }
+    }, [messages]);
+
+    const updateMessagesFromPreviousChat = (chatMessages, chatroomId) => {
+        const formattedMessages = chatMessages.map(msg => [
+            { text: msg.question, sent: true },
+            { text: msg.answer, sent: false }
+        ]).flat();
+
+        setMessages(formattedMessages);
+        loadPreviousChat(chatMessages[0].chatroomId);
+        console.log("roodid:",chatMessages[0].chatroomId)
+        localStorage.setItem('chatroomId', chatMessages[0].chatroomId);
+
+    };
+
+    useEffect(() => {
+        console.log("Selected chat messages:", messages);
     }, [messages]);
 
     return (
@@ -103,7 +122,12 @@ const Home = () => {
                 </div>
             </header>
 
-            <SideMenu isOpen={isMenuOpen} toggleMenu={toggleMenu} />
+            <SideMenu
+                isOpen={isMenuOpen}
+                toggleMenu={toggleMenu}
+                messages={messages}
+                updateMessages={updateMessagesFromPreviousChat}
+            />
 
             <div className="chat-container">
                 {messages.length === 0 ? (
