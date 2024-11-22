@@ -1,25 +1,84 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import './styles/SideMenu.css';
-import prev_btn from '../assets/previous_btn.png'
+import prev_btn from '../assets/previous_btn.png';
 
-const SideMenu = ({ isOpen, toggleMenu }) => {
+const SideMenu = ({ isOpen, toggleMenu, messages, updateMessages }) => {
+    const URL = 'http://52.78.72.117:8080';
+    const token = localStorage.getItem("authToken");
+
+    const [previousChats, setPreviousChats] = useState([]);
+    const [currentTitles, setCurrentTitles] = useState([]);
+
+    // 대화 리스트 api 연결
+    const fetchPreviousConversations = async () => {
+        try {
+            const response = await axios.get(`${URL}/api/conversations`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            setPreviousChats(response.data);
+        } catch (error) {
+            console.error('이전 대화 목록 가져오기 오류:', error);
+        }
+    };
+
+    // 채팅방별 조회 api 연결
+    const fetchChatMessages = async (chatroomId) => {
+        try {
+            const response = await axios.get(`${URL}/api/conversations/${chatroomId}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            updateMessages(response.data);
+            console.log("side:", response.data);
+
+            const titles = response.data.map((msg) => msg.question);
+            setCurrentTitles(titles);
+        } catch (error) {
+            console.error('대화 메시지 가져오기 오류:', error);
+        }
+    };
+
+    useEffect(() => {
+        if (isOpen) {
+            fetchPreviousConversations();
+        }
+    }, [isOpen]);
+
     return (
         <>
-            {/* 오버레이 배경 */}
             {isOpen && <div className="overlay" onClick={toggleMenu}></div>}
-            
-            {/* 사이드 메뉴 */}
             <div className={`side-menu ${isOpen ? 'open' : ''}`}>
-                <img src={prev_btn} className="close-btn" onClick={toggleMenu}></img>
-                <p className='record'>현재 대화 기록</p>
+                <img src={prev_btn} className="close-btn" onClick={toggleMenu} alt="닫기 버튼" />
+
+                <p className="record">현재 대화 기록</p>
                 <div className="current-chat">
-                    <p>자연어 처리에서 인코더 개념</p>
+                    {currentTitles.length > 0 ? (
+                        <p>{currentTitles[0]}</p>
+
+                    ) : (
+                        <p>현재 대화가 없습니다.</p>
+                    )}
                 </div>
-                <p className='record'>이전 대화 기록</p>
+
+                <p className="record">이전 대화 기록</p>
                 <div className="previous-chat">
-                    <p>인코더와 디코더의 구조</p>
-                    <p>허깅페이스 사용방법</p>
-                    <p>GPT 파인튜닝 방법</p>
+                    {previousChats.length > 0 ? (
+                        previousChats.map((chat, index) => (
+                            <p 
+                                key={index} 
+                                onClick={() => fetchChatMessages(chat.chatroomId)} 
+                                style={{ cursor: 'pointer', marginBottom: '10px' }}
+                            >
+                                {chat.question}
+                            </p>
+                        ))
+                    ) : (
+                        <p>이전 대화가 없습니다.</p>
+                    )}
                 </div>
             </div>
         </>

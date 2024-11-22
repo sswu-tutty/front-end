@@ -27,6 +27,7 @@
     z-index: 1000;
 
 
+
     .record{
         margin: 15px 0;
         margin-bottom: 0;
@@ -59,6 +60,8 @@
 }
 .previous-chat{
     padding: 0 10px;
+    overflow-y: auto; /* 내부 내용이 길어지면 스크롤 추가 */
+    margin-bottom: 30px;
 
     p{
         color: #8C8C8C;
