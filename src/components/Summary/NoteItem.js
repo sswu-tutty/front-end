@@ -44,7 +44,7 @@ const NoteItem = ({ id, title, content }) => {
                 <img className="on_kebab" onClick={handleKebab} src={Kebab} />
                 <img className="on_heart" onClick={handleLike} src={like ? Like : UnLike} />
             </div>
-            <DeleteModal isModalOpen={isModalOpen} onClose={onClose} />
+            <DeleteModal isModalOpen={isModalOpen} onClose={onClose} noteId={id} />
         </div>
     )
 }
