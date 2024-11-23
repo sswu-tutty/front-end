@@ -3,11 +3,13 @@ import FooterBar from "../components/FooterBar";
 import { FaHeart, FaCog, FaKey, FaUserEdit, FaSignOutAlt, FaRunning } from 'react-icons/fa';
 import profile from "../assets/profile.png"
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const MyPage = () => {
     const URL = 'http://52.78.72.117:8080';
     const [userName, setUserName] = useState("");
     const [error, setError] = useState("");
+    const navigate = useNavigate();
 
     // 사용자 이름 조회 API 연결
     useEffect(() => {
@@ -50,7 +52,7 @@ const MyPage = () => {
 
             <div className="menu-section">
                 <div className="menu-1">
-                    <div className="menu-item">
+                    <div className="menu-item" onClick={() => navigate("/bookmark")}>
                         <FaHeart className="menu-icon heart" />
                         <span>즐겨찾기</span>
                     </div>
