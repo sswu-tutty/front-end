@@ -1,10 +1,19 @@
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 import "../styles/Editing.css";
 import Back from "../../assets/back1.png";
+import { summaryEdit } from "../../api/Summary";
 
 const Editing = ({ detail, setEditing }) => {
+    const { id } = useParams();
     const [title, setTitle] = useState(detail.title || "");
     const [content, setContent] = useState(detail.content || "");
+
+    //요약본 편집 api
+    const handleEdit = () => {
+        summaryEdit(id, title, content); //인자: id, 수정제목, 수정내용
+        setEditing(false);
+    }
 
     return (
         <div className="Editing">
@@ -13,7 +22,7 @@ const Editing = ({ detail, setEditing }) => {
                     <img src={Back} />
                     <span>뒤로가기</span>
                 </div>
-                <div className="done_btn" onClick={() => setEditing(false)}>
+                <div className="done_btn" onClick={handleEdit}>
                     완료
                 </div>
             </div>

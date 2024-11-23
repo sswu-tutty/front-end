@@ -1,12 +1,17 @@
+import { useEffect } from "react";
 import "./styles/DeleteModal.css";
+import { summaryDelete } from "../api/Summary";
 
-const DeleteModal = ({ isModalOpen, onClose }) => {
+const DeleteModal = ({ isModalOpen, onClose, noteId }) => {
+
+    
     const handleBackgroundClick = (e) => {
         if (e.target === e.currentTarget) {
             onClose();
-        } else (
-            alert("삭제 하시겠습니까?")
-        )
+        } else {
+            //삭제 api연동
+            summaryDelete(noteId);
+        }
     };
 
     return (
