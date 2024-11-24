@@ -113,7 +113,6 @@ const Home = () => {
             const { answer } = response.data;
             setMessages((prevMessages) => [
                 ...prevMessages,
-                { text: question, sent: true },
                 { text: answer, sent: false }
             ]);
         } catch (error) {
