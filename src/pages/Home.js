@@ -36,29 +36,6 @@ const Home = () => {
         localStorage.setItem('chatroomId', chatroomId);
     };
 
-    const callChatbotAPI = async (question) => {
-        try {
-            const response = await axios.post(`${URL}/api/ask`, new URLSearchParams({
-                'chatroomId': chatroomId.toString(),
-                'question': question
-            }), {
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                    'Authorization': `Bearer ${token}`
-                }
-            });
-
-            const { answer } = response.data;
-            setMessages((prevMessages) => [
-                ...prevMessages,
-                { text: question, sent: true },
-                { text: answer, sent: false }
-            ]);
-        } catch (error) {
-            console.error('API 호출 오류:', error);
-        }
-    };
-
     const addMessage = () => {
         if (inputText.trim() !== '') {
             // 중복된 질문이 있는지 확인
@@ -74,6 +51,18 @@ const Home = () => {
             }
         }
     };
+
+    // const addMessage = () => {
+    //     if (inputText.trim() !== '') {
+    //         setMessages((prevMessages) => [
+    //             ...prevMessages,
+    //             { text: inputText, sent: true }
+    //         ]);
+    //         setInputText('');
+    //         callChatbotAPI(inputText);
+    //     }
+    // };
+    
 
     const handleInputChange = (e) => {
         setInputText(e.target.value);
@@ -99,7 +88,7 @@ const Home = () => {
 
         setMessages(formattedMessages);
         loadPreviousChat(chatMessages[0].chatroomId);
-        console.log("roodid:",chatMessages[0].chatroomId)
+        console.log("roodid:", chatMessages[0].chatroomId)
         localStorage.setItem('chatroomId', chatMessages[0].chatroomId);
 
     };
@@ -108,6 +97,44 @@ const Home = () => {
         console.log("Selected chat messages:", messages);
     }, [messages]);
 
+    // 챗봇 대화 api 연결
+    const callChatbotAPI = async (question) => {
+        try {
+            const response = await axios.post(`${URL}/api/ask`, new URLSearchParams({
+                'chatroomId': chatroomId.toString(),
+                'question': question
+            }), {
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            const { answer } = response.data;
+            setMessages((prevMessages) => [
+                ...prevMessages,
+                { text: question, sent: true },
+                { text: answer, sent: false }
+            ]);
+        } catch (error) {
+            console.error('API 호출 오류:', error);
+        }
+    };
+
+    // 챗봇 내용 요약 api 연결
+    const addSummary = async () => {
+        try {
+            const response = await axios.post(`${URL}/api/notes/summary/${chatroomId}`, null, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            console.log('Summary:', response.data);
+        } catch (error) {
+            console.error('Summary API 호출 오류:', error);
+        }
+    };
+
     return (
         <div className="Home_wrap container">
             <header className="header">
@@ -115,7 +142,7 @@ const Home = () => {
                 <div className='buttons'>
                     {messages.length > 0 && (
                         <>
-                            <button className='sum-message'>요약본 생성</button>
+                            <button className='sum-message' onClick={addSummary}>요약본 생성</button>
                             <button className='quiz-mesaage'>퀴즈 생성</button>
                         </>
                     )}
