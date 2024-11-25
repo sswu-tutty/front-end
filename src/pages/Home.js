@@ -129,6 +129,7 @@ const Home = () => {
                 }
             });
             console.log('Summary:', response.data);
+            alert("요약노트 생성이 완료되었습니다.")
         } catch (error) {
             console.error('Summary API 호출 오류:', error);
         }
