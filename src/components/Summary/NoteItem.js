@@ -1,52 +1,60 @@
 import "../styles/NoteItem.css";
 import BookImg from "../../assets/book.png";
-import Kebab from "../../assets/kebab.png"
+import Kebab from "../../assets/kebab.png";
 import Like from "../../assets/like.png";
 import UnLike from "../../assets/unlike.png";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DeleteModal from "../DeleteModal";
+import { summaryTotalList, summaryBookmark } from "../../api/Summary";
 
-const NoteItem = ({ id, title, content }) => {
-    const [like, setLike] = useState(false);
+const NoteItem = ({ id, title, content, liked, setData, handleLike }) => {
+    const [like, setLike] = useState(liked); // 초기 liked 값으로 설정
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const navigate = useNavigate();
 
     const goDetail = () => {
         navigate(`/summaryinquiry/${id}`);
-    }
+    };
 
     const handleKebab = () => {
         setIsModalOpen(true);
-    }
+    };
 
-    const handleLike = () => {
-        setLike(!like);
-    }
+    
+    
+    const handleDeleteSuccess = async () => {
+        setIsModalOpen(false);
+        const result = await summaryTotalList();
+        setData(result);
 
-    const onClose = () => {
-        setIsModalOpen(false)
-    }
+    };
 
     return (
         <div className="NoteItem">
-            <img onClick={goDetail} className="book_section" src={BookImg} />
+            <img onClick={goDetail} className="book_section" src={BookImg} alt="Book" />
             <div onClick={goDetail} className="title_section">
-                <div className="main_title">
-                    {title}
-                </div>
-                <div className="sub_title">
-                    {content}
-                </div>
+                <div className="main_title">{title}</div>
+                <div className="sub_title">{content.slice(0, 38)}</div>
             </div>
             <div className="etc_section">
-                <img className="on_kebab" onClick={handleKebab} src={Kebab} />
-                <img className="on_heart" onClick={handleLike} src={like ? Like : UnLike} />
+                <img className="on_kebab" onClick={handleKebab} src={Kebab} alt="Options" />
+                <img
+                    className="on_heart"
+                    onClick={handleLike}
+                    src={like ? Like : UnLike}
+                    alt="Like"
+                />
             </div>
-            <DeleteModal isModalOpen={isModalOpen} onClose={onClose} noteId={id} />
+            <DeleteModal
+                isModalOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                noteId={id}
+                onDeleteSuccess={handleDeleteSuccess} 
+            />
         </div>
-    )
-}
+    );
+};
 
 export default NoteItem;

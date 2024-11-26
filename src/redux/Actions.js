@@ -1,12 +1,12 @@
 //action정의 파일
-export const FETCH_SUMMARYLIST = "FETCH_SUMMARYLIST"; 
+export const FETCH_SUMMARY_DETAIL_LIST = "FETCH_SUMMARY_DETAIL_LIST"; 
 export const FETCH_QUIZLIST = "FETCH_QUIZLIST";
 
 // 요약페이지
-//요약 리스트(요약노트 전체 조회시)
-export const fetchSummaryList = (summaryList) => ({
-    type: FETCH_SUMMARYLIST,
-    payload: {summaryList}
+//요약 상세 조회
+export const fetchSumDetailList = (summaryDetail) => ({
+    type: FETCH_SUMMARY_DETAIL_LIST,
+    payload: {summaryDetail}
 })
 
 
