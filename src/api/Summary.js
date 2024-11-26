@@ -1,10 +1,10 @@
 import instance from "./Axios";
-//import AsyncStorage from '@react-native-async-storage/async-storage';
 
 //요약본 전체 결과조회
 export const summaryTotalList = async () => {
-    const jwtToken = '';
 
+    const jwtToken = localStorage.getItem("authToken");
+    console.log("jwtToken", jwtToken)
     try {
         const response = await instance.get(
             '/api/notes',
@@ -15,6 +15,7 @@ export const summaryTotalList = async () => {
             },
         );
         console.log("요약본 전체 결과조회 결과: ", response.data)
+        return response.data;
     } catch (error) {
         console.log("요약본 전체 결과조회 오류: ", error)
         throw error;
@@ -24,7 +25,9 @@ export const summaryTotalList = async () => {
 
 //요약 노트 상세 조회
 export const summaryDetailList = async (noteId) => {
-    const jwtToken = '';
+    const jwtToken = localStorage.getItem("authToken");
+    console.log("jwtToken", jwtToken);
+    console.log("요약상세조회 id", noteId)
 
     try {
         const response = await instance.get(
@@ -36,6 +39,7 @@ export const summaryDetailList = async (noteId) => {
             },
         );
         console.log("요약본 상세조회 결과: ", response.data)
+        return response.data;
     } catch (error) {
         console.log("요약본 상세조회 오류: ", error)
         throw error;
@@ -44,7 +48,7 @@ export const summaryDetailList = async (noteId) => {
 
 //요약 노트 삭제
 export const summaryDelete = async (noteId) => {
-    const jwtToken = '';
+    const jwtToken = localStorage.getItem("authToken");
 
     try {
         const response = await instance.delete(
@@ -65,7 +69,7 @@ export const summaryDelete = async (noteId) => {
 
 //요약 노트 수정
 export const summaryEdit = async (noteId, editedTitle, editedContent) => {
-    const jwtToken = '';
+    const jwtToken = localStorage.getItem("authToken");
 
     try {
         const response = await instance.put(
@@ -90,7 +94,7 @@ export const summaryEdit = async (noteId, editedTitle, editedContent) => {
 
 //요약 노트 북마크
 export const summaryBookmark = async (noteId) => {
-    const jwtToken = '';
+    const jwtToken = localStorage.getItem("authToken");
 
     try {
         const response = await instance.patch(
