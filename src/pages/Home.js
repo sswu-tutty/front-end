@@ -23,7 +23,7 @@ const Home = () => {
     // 새로운 대화 시작 시 chatroomId 설정
     const startChat = () => {
         const storedChatroomId = localStorage.getItem('chatroomId');
-        const newChatroomId = storedChatroomId ? storedChatroomId : 1;
+        const newChatroomId = storedChatroomId ? parseInt(storedChatroomId) + 1 : 1;
         setChatroomId(newChatroomId);
         localStorage.setItem('chatroomId', newChatroomId);
         setMessages([]);
