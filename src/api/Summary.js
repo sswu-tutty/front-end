@@ -96,15 +96,13 @@ export const summaryEdit = async (noteId, editedTitle, editedContent) => {
 export const summaryBookmark = async (noteId) => {
     const jwtToken = localStorage.getItem("authToken");
 
-    if (!jwtToken) {
-        console.error("JWT 토큰이 없습니다.");
-        throw new Error("로그인이 필요합니다.");
-    }
-
+    console.log("jwtToken", jwtToken)
+    console.log("noteId", noteId)
     try {
         const response = await instance.patch(
+
             `/api/notes/${noteId}/bookmark`,
-            {}, // 요청 본문이 없을 경우 빈 객체 전달
+            {}, 
             {
                 headers: {
                     Authorization: `Bearer ${jwtToken}`,

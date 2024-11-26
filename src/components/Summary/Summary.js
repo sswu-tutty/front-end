@@ -11,22 +11,13 @@ const Summary = () => {
     const [showModal, setShowModal] = useState(false);
 
     const handleLike = (id) => {
-        // 특정 데이터 항목의 'liked' 상태를 업데이트
-        setData((prevData) => {
-            return prevData.map((item) => {
-                if (item.id === id) {
-                    const isLiked = !item.liked;
-                    // 북마크 API 호출
-                    summaryBookmark(id);
-                    // 모달 메시지 설정
-                    setModalMessage(isLiked ? "북마크가 설정되었습니다." : "북마크가 해제되었습니다.");
-                    setShowModal(true); // 모달 표시
-                    setTimeout(() => setShowModal(false), 2000); // 2초 후 모달 숨기기
-                    return { ...item, liked: isLiked };
-                }
-                return item;
-            });
-        });
+        summaryBookmark(id);
+        if(data.id === id) {
+            const isLiked = !data.liked;
+            setModalMessage(isLiked ? "북마크가 설정되었습니다." : "북마크가 해제되었습니다.")
+            setShowModal(true); 
+                    setTimeout(() => setShowModal(false), 2000); 
+        }
     };
 
     useEffect(() => {

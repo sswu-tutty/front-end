@@ -51,7 +51,7 @@ const NoteItem = ({ id, title, content, liked, setData, handleLike }) => {
                 isModalOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
                 noteId={id}
-                onDeleteSuccess={handleDeleteSuccess} // 삭제 성공 콜백
+                onDeleteSuccess={handleDeleteSuccess} 
             />
         </div>
     );
