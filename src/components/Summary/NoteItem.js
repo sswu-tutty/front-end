@@ -6,9 +6,9 @@ import UnLike from "../../assets/unlike.png";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DeleteModal from "../DeleteModal";
-import { summaryTotalList } from "../../api/Summary";
+import { summaryTotalList, summaryBookmark } from "../../api/Summary";
 
-const NoteItem = ({ id, title, content, liked, setData }) => {
+const NoteItem = ({ id, title, content, liked, setData, handleLike }) => {
     const [like, setLike] = useState(liked); // 초기 liked 값으로 설정
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -22,9 +22,7 @@ const NoteItem = ({ id, title, content, liked, setData }) => {
         setIsModalOpen(true);
     };
 
-    const handleLike = () => {
-        setLike(!like);
-    };
+    
     
     const handleDeleteSuccess = async () => {
         setIsModalOpen(false);

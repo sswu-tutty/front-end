@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { summaryBookmark } from "../../api/Summary";
+import { summaryTotalList } from "../../api/Summary";
 import NoteItem from "../Summary/NoteItem";
 
 const SummaryBookmark = () => {
@@ -7,26 +7,29 @@ const SummaryBookmark = () => {
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        const fetchSummaryBookmarkList = async () => {
+        const fetchSummaryList = async () => {
             try {
-                const result = await summaryBookmark(); 
-                setData(result); 
+                const result = await summaryTotalList();
+                console.log(result);
+                setData(result);
             } catch (error) {
-                console.error("Failed to fetch summary bookmark list:", error);
+                console.error("Failed to fetch summary list:", error);
             }
         };
 
-        fetchSummaryBookmarkList(); 
+        fetchSummaryList();
     }, []);
+
+    // liked 값이 true인 항목만 필터링
+    const filteredData = data.filter((item) => item.liked);
 
     return (
         <div>
-            요약본 좋아요
-            {data.map((it) => (
-                <NoteItem key={it.id} {...it} />
+            {filteredData.map((it) => (
+                <NoteItem key={it.id} {...it} setData={setData} />
             ))}
         </div>
-    )
+    );
 }
 
 export default SummaryBookmark;

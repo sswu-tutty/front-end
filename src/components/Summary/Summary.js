@@ -1,17 +1,40 @@
 import { useEffect, useState } from "react";
 import NoteItem from "./NoteItem";
-import { summaryTotalList } from "../../api/Summary";
+import { summaryTotalList, summaryBookmark } from "../../api/Summary";
 
 const Summary = () => {
-    //전체일기 저장변수
+    // 전체 일기 저장 변수
     const [data, setData] = useState([]);
+    // 모달 메시지 상태
+    const [modalMessage, setModalMessage] = useState("");
+    // 모달 표시 상태
+    const [showModal, setShowModal] = useState(false);
+
+    const handleLike = (id) => {
+        // 특정 데이터 항목의 'liked' 상태를 업데이트
+        setData((prevData) => {
+            return prevData.map((item) => {
+                if (item.id === id) {
+                    const isLiked = !item.liked;
+                    // 북마크 API 호출
+                    summaryBookmark(id);
+                    // 모달 메시지 설정
+                    setModalMessage(isLiked ? "북마크가 설정되었습니다." : "북마크가 해제되었습니다.");
+                    setShowModal(true); // 모달 표시
+                    setTimeout(() => setShowModal(false), 2000); // 2초 후 모달 숨기기
+                    return { ...item, liked: isLiked };
+                }
+                return item;
+            });
+        });
+    };
 
     useEffect(() => {
         const fetchSummaryList = async () => {
             try {
                 const result = await summaryTotalList();
                 console.log(result);
-                setData(result)
+                setData(result);
             } catch (error) {
                 console.error("Failed to fetch summary list:", error);
             }
@@ -23,10 +46,14 @@ const Summary = () => {
     return (
         <div>
             {data.map((it) => (
-                <NoteItem key={it.id} {...it} setData={setData} />
+                <NoteItem key={it.id} {...it} setData={setData} handleLike={() => handleLike(it.id)} />
             ))}
+            {showModal && (
+                <div className="modal">
+                    {modalMessage}
+                </div>
+            )}
         </div>
-
     );
 };
 
