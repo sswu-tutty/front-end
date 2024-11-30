@@ -51,17 +51,6 @@ const Home = () => {
             }
         }
     };
-
-    // const addMessage = () => {
-    //     if (inputText.trim() !== '') {
-    //         setMessages((prevMessages) => [
-    //             ...prevMessages,
-    //             { text: inputText, sent: true }
-    //         ]);
-    //         setInputText('');
-    //         callChatbotAPI(inputText);
-    //     }
-    // };
     
 
     const handleInputChange = (e) => {
@@ -88,7 +77,7 @@ const Home = () => {
 
         setMessages(formattedMessages);
         loadPreviousChat(chatMessages[0].chatroomId);
-        console.log("roodid:", chatMessages[0].chatroomId)
+        console.log("roomid:", chatMessages[0].chatroomId)
         localStorage.setItem('chatroomId', chatMessages[0].chatroomId);
 
     };
@@ -135,6 +124,21 @@ const Home = () => {
         }
     };
 
+    // 퀴즈 생성 api 연결
+    const addQuiz = async () => {
+        try {
+            const response = await axios.post(`${URL}/api/quiz/generate/${chatroomId}`,null, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            console.log('Quiz:', response.data);
+            alert("퀴즈 생성이 완료되었습니다.")
+        } catch (error) {
+            console.error('Quiz API 호출 오류:', error);
+        }
+    };
+    
     return (
         <div className="Home_wrap container">
             <header className="header">
@@ -143,7 +147,7 @@ const Home = () => {
                     {messages.length > 0 && (
                         <>
                             <button className='sum-message' onClick={addSummary}>요약본 생성</button>
-                            <button className='quiz-mesaage'>퀴즈 생성</button>
+                            <button className='quiz-mesaage' onClick={addQuiz}>퀴즈 생성</button>
                         </>
                     )}
                 </div>
