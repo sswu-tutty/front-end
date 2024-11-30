@@ -5,7 +5,6 @@ import uploadIcon from '../assets/upload_img.png';
 import Modal from '../components/ImgModal';
 import TextScreen from '../components/TextScreen';
 
-
 const ImgUpload = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [quizOption, setQuizOption] = useState(false);
@@ -16,7 +15,7 @@ const ImgUpload = () => {
     const fileInputRef = useRef(null);
     const [imageSrc, setImageSrc] = useState(null);
     const [fileName, setFileName] = useState('');
-
+    const [selectedFile, setSelectedFile] = useState(null);  // 선택된 파일 상태 추가
 
     const handleUploadClick = () => {
         if (fileInputRef.current) {
@@ -24,23 +23,17 @@ const ImgUpload = () => {
         }
     };
 
-
-    // 모달 열기/닫기 함수
     const toggleModal = () => {
         setIsModalOpen(!isModalOpen);
     };
 
-    // 확인 버튼 클릭 시 선택된 옵션 처리
-    const handleConfirm = () => {
+    const handleConfirm = async () => {
+        if (selectedFile) {
+            const base64Image = await convertFileToBase64(selectedFile);
+            await callOCRApi(base64Image);
+        }
 
-        // 선택된 옵션에 따라 텍스트 데이터를 생성
-        const data = `
-            ${quizOption ? "퀴즈 생성 옵션이 선택되었습니다.\n" : ""}
-            ${summaryOption ? "요약본 생성 옵션이 선택되었습니다.\n" : ""}
-        `;
-
-        // 텍스트 데이터를 설정하고 로딩 상태로 전환
-        setTextData(data);
+        // 로딩 상태로 전환
         setIsLoading(true);
 
         // 2초 후 로딩 해제 및 텍스트 화면으로 전환
@@ -50,7 +43,6 @@ const ImgUpload = () => {
         }, 2000);
     };
 
-    // 네이버 ocr
     const convertFileToBase64 = (file) => {
         return new Promise((resolve, reject) => {
             const reader = new FileReader();
@@ -86,7 +78,6 @@ const ImgUpload = () => {
                     headers: {
                         'X-OCR-SECRET': secretKey,
                         'Content-Type': 'application/json',
-
                     },
                 }
             );
@@ -99,6 +90,7 @@ const ImgUpload = () => {
 
                 setTextData(inferText);
                 setShowTextScreen(true);
+                console.log(inferText)
             } else {
                 throw new Error('OCR 결과가 유효하지 않습니다.');
             }
@@ -110,46 +102,26 @@ const ImgUpload = () => {
         }
     };
 
-    const handleFileChange = async (event) => {
+    const handleFileChange = (event) => {
         const file = event.target.files[0];
         if (file) {
             if (file.type.startsWith('image/')) {
                 // 이미지 파일인 경우
                 setImageSrc(URL.createObjectURL(file));
                 setFileName('');
-                setIsLoading(true);
-                try {
-                    const base64Image = await convertFileToBase64(file);
-                    await callOCRApi(base64Image);
-                } catch (error) {
-                    console.error('파일 변환 오류:', error);
-                    alert('이미지 처리 중 오류가 발생했습니다.');
-                    setIsLoading(false);
-                }
+                setSelectedFile(file);  // 선택된 파일을 상태로 저장
             } else {
                 // 이미지가 아닌 다른 파일일 경우
                 setImageSrc(null);
                 setFileName(file.name);
-                setIsLoading(true);
-                try {
-                    const base64File = await convertFileToBase64(file);
-                    await callOCRApi(base64File);  // OCR API로 다른 파일도 처리
-                } catch (error) {
-                    console.error('파일 변환 오류:', error);
-                    alert('파일 처리 중 오류가 발생했습니다.');
-                    setIsLoading(false);
-                }
+                setSelectedFile(file);  // 선택된 파일을 상태로 저장
             }
         }
     };
 
-
-
     return (
         <div className="Image_wrap container">
-
             {isLoading ? (
-                // 로딩 화면
                 <div className="loading-screen">
                     <div className="spinner"></div>
                 </div>
@@ -157,7 +129,6 @@ const ImgUpload = () => {
                 <TextScreen text={textData} />
             ) : (
                 <>
-
                     <div className="upload-area" onClick={handleUploadClick} style={{ cursor: 'pointer' }}>
                         <input
                             ref={fileInputRef}
@@ -166,25 +137,20 @@ const ImgUpload = () => {
                             onChange={handleFileChange}
                         />
                         <div className="image-preview">
-                            {/* 이미지 파일일 때만 미리보기 표시 */}
                             {imageSrc ? (
                                 <img src={imageSrc} alt="Uploaded" className="uploaded-icon" />
                             ) : (
-                                // 이미지가 아닌 파일일 경우 기본 아이콘은 숨기고 파일 이름만 표시
                                 !fileName && <img src={uploadIcon} alt="Upload Icon" className="upload-icon default-icon" />
                             )}
                         </div>
-                        {/* 파일 이름이 있으면 파일 이름만 표시 */}
                         {fileName ? (
                             <p className="file-name">{fileName}</p>
                         ) : (
-                            // 파일 이름이 없고 기본 아이콘만 있을 경우 텍스트 표시
                             !imageSrc && !fileName && <p>이미지 파일을 업로드하세요!</p>
                         )}
                     </div>
 
                     <button className="upload-button" onClick={toggleModal}>이미지 업로드하기</button>
-
 
                     <Modal
                         isOpen={isModalOpen}
@@ -198,7 +164,6 @@ const ImgUpload = () => {
                 </>
             )}
             <FooterBar />
-
         </div>
     );
 };
