@@ -126,7 +126,11 @@ const ImgUpload = () => {
                     <div className="spinner"></div>
                 </div>
             ) : showTextScreen ? (
-                <TextScreen text={textData} />
+                <TextScreen
+                    text={textData}
+                    quizOption={quizOption}
+                    summaryOption={summaryOption}
+                />
             ) : (
                 <>
                     <div className="upload-area" onClick={handleUploadClick} style={{ cursor: 'pointer' }}>
