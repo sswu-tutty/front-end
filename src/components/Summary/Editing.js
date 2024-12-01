@@ -5,7 +5,7 @@ import Back from "../../assets/back1.png";
 import { summaryEdit } from "../../api/Summary";
 import { summaryDetailList } from "../../api/Summary";
 
-const Editing = ({ detail, setEditing }) => {
+const Editing = ({setEditing }) => {
     const { id } = useParams();
 
     // 제목과 내용 상태 초기화
