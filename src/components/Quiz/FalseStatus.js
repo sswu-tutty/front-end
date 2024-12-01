@@ -5,7 +5,7 @@ import MyButton from "../MyButton";
 import { useNavigate, useParams } from "react-router-dom";
 import { quizResultDetail } from "../../api/Quiz";
 
-const FalseStatus = ({ qamockdata }) => {
+const FalseStatus = () => {
     const { id } = useParams();
     const navigate = useNavigate();
 
@@ -68,10 +68,30 @@ const FalseStatus = ({ qamockdata }) => {
 
     const answers = currentQA
         ? [
-            { id: 1, answer: currentQA.option1 || null },
-            { id: 2, answer: currentQA.option2 || null },
-            { id: 3, answer: currentQA.option3 || null },
-            { id: 4, answer: currentQA.option4 || null },
+            {
+                id: 1,
+                answer: currentQA.option1 || null,
+                selected: currentQA.selectedOption || null,
+                correct: currentQA.selectedOption || null
+            },
+            {
+                id: 2,
+                answer: currentQA.option2 || null,
+                selected: currentQA.selectedOption || null,
+                correct: currentQA.selectedOption || null
+            },
+            {
+                id: 3,
+                answer: currentQA.option3 || null,
+                selected: currentQA.selectedOption || null,
+                correct: currentQA.selectedOption || null
+            },
+            {
+                id: 4,
+                answer: currentQA.option4 || null,
+                selected: currentQA.selectedOption || null,
+                correct: currentQA.selectedOption || null
+            },
         ]
         : [];
 
@@ -93,6 +113,7 @@ const FalseStatus = ({ qamockdata }) => {
                             answers={answers}
                             selectedAnswer={result[currentQA.questionId]}
                             onAnswerClick={onAnswerClick}
+                            status = {true}
                         />
                     )}
                 </div>

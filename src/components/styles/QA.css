@@ -19,7 +19,6 @@
 
 .answer_section {
     width: 480px;
-
     display: flex;
     flex-wrap: wrap;
     margin-top: 10px;
@@ -57,12 +56,19 @@
     color: #FFFFFF;
 }
 
-
-
 .answer.false {
     background-color: #F1F1F1;
     color: #535353;
     border: 3px solid #CE4949;
 }
 
-
+.correct-answer-section {
+    width: 480px;
+    text-align: right; /* Align text to the left */
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 18px;
+    color: #535353;
+    font-weight: bold;
+    margin-right: 70px;
+}
