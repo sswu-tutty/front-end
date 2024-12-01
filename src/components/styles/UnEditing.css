@@ -6,8 +6,8 @@
 }
 
 .back_btn {
-    display: flex;                /* 가로로 정렬 */
-    align-items: center;          /* 수직 가운데 정렬 */
+    display: flex;               
+    align-items: center;         
     color: #FA945D;
     font-weight: bolder;
     margin-top: 5px;

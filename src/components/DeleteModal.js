@@ -1,13 +1,19 @@
 import { useEffect } from "react";
 import "./styles/DeleteModal.css";
 import { summaryDelete } from "../api/Summary";
+import { quizDelete } from "../api/Quiz";
 
-const DeleteModal = ({ isModalOpen, onClose, noteId, onDeleteSuccess }) => {
+const DeleteModal = ({ isModalOpen, onClose, noteId, onDeleteSuccess, status }) => {
 
     
     const handleDelete = async () => {
         try {
-            await summaryDelete(noteId); // 삭제 API 호출
+            if(status == "요약") {
+                await summaryDelete(noteId); // 삭제 API 호출
+            } else {
+                await quizDelete(noteId);
+            }
+            
             alert("삭제 되었습니다.");
             onClose(); // 모달 닫기
             if (onDeleteSuccess) {

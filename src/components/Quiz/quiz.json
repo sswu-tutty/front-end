@@ -1,0 +1,62 @@
+{
+    "totalQuestions": 5,
+    "correctCount": 2,
+    "questionResults": [
+        {
+            "questionId": 21,
+            "questionText": "어시스턴트 API의 주요 기능은 무엇인가요?",
+            "option1": "비디오 편집",
+            "option2": "인공지능 기반의 대화형 인터페이스 통합",
+            "option3": "게임 개발",
+            "option4": "이미지 처리",
+            "selectedOption": 1,
+            "correctOption": 2,
+            "correct": false
+        },
+        {
+            "questionId": 22,
+            "questionText": "어시스턴트 API를 통해 구현할 수 없는 기능은 무엇인가요?",
+            "option1": "고객 지원 챗봇",
+            "option2": "음성 인식 기능",
+            "option3": "데이터베이스 관리",
+            "option4": "질문 응답 시스템",
+            "selectedOption": 3,
+            "correctOption": 3,
+            "correct": true
+        },
+        {
+            "questionId": 23,
+            "questionText": "어시스턴트 API는 어떤 형태로 제공되나요?",
+            "option1": "FTP API",
+            "option2": "RESTful API",
+            "option3": "SOAP API",
+            "option4": "GraphQL API",
+            "selectedOption": 2,
+            "correctOption": 2,
+            "correct": true
+        },
+        {
+            "questionId": 24,
+            "questionText": "어시스턴트 API를 사용하면 어떤 기술을 활용할 수 있나요?",
+            "option1": "자연어 처리 기술",
+            "option2": "영상 편집 기술",
+            "option3": "3D 모델링 기술",
+            "option4": "음악 생성 기술",
+            "selectedOption": 2,
+            "correctOption": 1,
+            "correct": false
+        },
+        {
+            "questionId": 25,
+            "questionText": "어시스턴트 API는 어느 분야에 주로 사용되나요?",
+            "option1": "응급 구조",
+            "option2": "소프트웨어 개발",
+            "option3": "사용자 경험 개선",
+            "option4": "스포츠 분석",
+            "selectedOption": 2,
+            "correctOption": 3,
+            "correct": false
+        }
+    ],
+    "hasAttempted": true 
+}
