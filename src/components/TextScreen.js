@@ -9,7 +9,7 @@ const TextScreen = ({ text, quizOption, summaryOption }) => {
     // 논문 요약노트 생성 API 연결
     const addSummary = async () => {
         try {
-            const response = await axios.post(`${URL}/api/paper-notes/summarize`, {text}, {
+            const response = await axios.post(`${URL}/api/paper-notes/summarize`, { text }, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -38,8 +38,8 @@ const TextScreen = ({ text, quizOption, summaryOption }) => {
 
     // 완료 버튼 클릭 시, 선택된 옵션에 맞는 함수 실행
     const handleComplete = () => {
-        console.log('summary:',summaryOption)
-        console.log('quiz:',quizOption)
+        console.log('summary:', summaryOption)
+        console.log('quiz:', quizOption)
         if (quizOption) {
             addQuiz(); // 퀴즈 생성
         }
@@ -54,7 +54,7 @@ const TextScreen = ({ text, quizOption, summaryOption }) => {
             <div className="btn-container">
                 <button className="complete-btn" onClick={handleComplete}>완료</button>
             </div>
-            <div>
+            <div className='text-content'>
                 <p>{text}</p>
             </div>
         </div>
