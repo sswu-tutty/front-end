@@ -49,7 +49,7 @@ function App() {
                 <Route path="/scorepage" element={<ScorePage />} />
                 <Route path="/resultcheck/:id" element={<ResultCheck />} />
                 <Route path="/bookmark" element={<Bookmark />} />
-                <Route path="/paperinquiry:id" element={<PaperInquiry />} />
+                <Route path="/paperinquiry/:id" element={<PaperInquiry />} />
               </Routes>
               <FooterBar />
             </div>
