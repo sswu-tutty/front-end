@@ -94,7 +94,7 @@ export const quizBookmark = async (quizId) => {
     console.log("jwtToken", jwtToken)
 
     try {
-        const response = await instance.get(
+        const response = await instance.patch(
             `/api/quiz/${quizId}/bookmark`,
             {
                 headers: {
