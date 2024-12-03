@@ -5,6 +5,7 @@ import QA from "./QA";
 import { useState } from "react";
 import { quizResultDetail } from "../../api/Quiz";
 
+//퀴즈 응시된 상태(결과 확인)
 const TrueStatus = () => {
     const { id } = useParams();
     const navigate = useNavigate();
@@ -12,7 +13,9 @@ const TrueStatus = () => {
     const [data, setData] = useState([]);
     const [pages, setPages] = useState(0);
     const [lastPage, setLastPage] = useState(4);
-    const [result, setResult] = useState({}); // 선택 결과 저장
+
+    // 퀴즈 풀기 결과 저장
+    const [result, setResult] = useState({}); 
 
     const [currentQA, setCurrentQA] = useState(null);
 

@@ -6,6 +6,11 @@ const QA = ({ currentQA, answers, selectedAnswer, onAnswerClick, correct, hasAtt
     console.log("hasAttempted", hasAttempted)
     // Helper function to calculate the classes for each answer
     const getAnswerClass = (it) => {
+        if(!hasAttempted) {
+            if(selectedAnswer == it.id) {
+                return "answer active";
+            }
+        }
         if (!correct) {
             if (it.id === it.selected) {
                 return "answer active"
@@ -21,7 +26,9 @@ const QA = ({ currentQA, answers, selectedAnswer, onAnswerClick, correct, hasAtt
     };
 
     const handleClick = (questionId, answerId) => {
-        onAnswerClick(questionId, answerId);
+        if(!hasAttempted) {
+            onAnswerClick(questionId, answerId);
+        }
     };
 
     return (
