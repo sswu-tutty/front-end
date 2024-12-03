@@ -1,18 +1,19 @@
 import React from "react";
 import "../styles/QA.css";
 
-const QA = ({ currentQA, answers, selectedAnswer, onAnswerClick, correct }) => {
+const QA = ({ currentQA, answers, selectedAnswer, onAnswerClick, correct, hasAttempted }) => {
 
+    console.log("hasAttempted", hasAttempted)
     // Helper function to calculate the classes for each answer
     const getAnswerClass = (it) => {
         if (!correct) {
-            if(it.id === it.selected) {
+            if (it.id === it.selected) {
                 return "answer active"
-            } else if(it.id === it.correct) {
+            } else if (it.id === it.correct) {
                 return "answer false"
             }
         } else {
-            if(it.id === it.selected) {
+            if (it.id === it.selected) {
                 return "answer active"
             }
         }
@@ -45,7 +46,7 @@ const QA = ({ currentQA, answers, selectedAnswer, onAnswerClick, correct }) => {
                 ))}
             </div>
             <div className="correct-answer-section">
-                정답: {currentQA.correctOption || ""}
+                {!hasAttempted ? null : `정답: ${currentQA.correctOption}`}
             </div>
         </div>
     );

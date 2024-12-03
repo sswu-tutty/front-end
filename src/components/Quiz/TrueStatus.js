@@ -97,6 +97,7 @@ const TrueStatus = () => {
                         <QA currentQA={currentQA}
                             answers={answers}
                             selectedAnswer={result[currentQA.questionId]}
+                            hasAttempted={data.hasAttempted}
                         />
                     )}
                 </div>

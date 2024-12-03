@@ -5,6 +5,7 @@ import MyButton from "../MyButton";
 import { useNavigate, useParams } from "react-router-dom";
 import { quizResultDetail } from "../../api/Quiz";
 
+//퀴즈 미응시
 const FalseStatus = () => {
     const { id } = useParams();
     const navigate = useNavigate();
@@ -114,6 +115,7 @@ const FalseStatus = () => {
                             selectedAnswer={result[currentQA.questionId]}
                             onAnswerClick={onAnswerClick}
                             status = {true}
+                            hasAttempted={data.hasAttempted}
                         />
                     )}
                 </div>
