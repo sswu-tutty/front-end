@@ -3,16 +3,20 @@ import "../styles/FalseStatus.css";
 import QA from "./QA";
 import MyButton from "../MyButton";
 import { useNavigate, useParams } from "react-router-dom";
-import { quizResultDetail } from "../../api/Quiz";
+import { quizResultDetail, quizResult } from "../../api/Quiz";
 
-const FalseStatus = ({ qamockdata }) => {
+//퀴즈 미응시된 상태(퀴즈 풀기기)
+const FalseStatus = () => {
     const { id } = useParams();
     const navigate = useNavigate();
 
     const [data, setData] = useState([]);
     const [pages, setPages] = useState(0);
     const [lastPage, setLastPage] = useState(4);
-    const [result, setResult] = useState({}); // 선택 결과 저장
+    // 퀴즈 풀기 결과 저장
+    const [result, setResult] = useState({});
+    console.log("문제 풀이 답안 확인", result)
+
 
     const [currentQA, setCurrentQA] = useState(null);
 
@@ -61,17 +65,53 @@ const FalseStatus = ({ qamockdata }) => {
         navigate("/note");
     };
 
-    const onSubmit = () => {
-        console.log("최종 선택 결과:", result);
-        navigate("/scorepage", { state: { result } });
+    const onSubmit = async () => {
+        if (Object.keys(result).length < 5) { // 답안 개수 확인
+            alert("답안이 모두 선택되지 않았습니다.");
+            return;
+        }
+    
+        try {
+            console.log("최종 선택 결과:", result);
+    
+            // quizResult 비동기 호출
+            const quiz_result = await quizResult(id, result);
+    
+            // 결과를 state로 전달
+            navigate("/scorepage", { state: { quiz_result, id } });
+        } catch (error) {
+            console.error("Failed to submit quiz result:", error);
+            alert("결과를 제출하는 중 오류가 발생했습니다.");
+        }
     };
+    
 
     const answers = currentQA
         ? [
-            { id: 1, answer: currentQA.option1 || null },
-            { id: 2, answer: currentQA.option2 || null },
-            { id: 3, answer: currentQA.option3 || null },
-            { id: 4, answer: currentQA.option4 || null },
+            {
+                id: 1,
+                answer: currentQA.option1 || null,
+                selected: currentQA.selectedOption || null,
+                correct: currentQA.selectedOption || null
+            },
+            {
+                id: 2,
+                answer: currentQA.option2 || null,
+                selected: currentQA.selectedOption || null,
+                correct: currentQA.selectedOption || null
+            },
+            {
+                id: 3,
+                answer: currentQA.option3 || null,
+                selected: currentQA.selectedOption || null,
+                correct: currentQA.selectedOption || null
+            },
+            {
+                id: 4,
+                answer: currentQA.option4 || null,
+                selected: currentQA.selectedOption || null,
+                correct: currentQA.selectedOption || null
+            },
         ]
         : [];
 
@@ -93,6 +133,8 @@ const FalseStatus = ({ qamockdata }) => {
                             answers={answers}
                             selectedAnswer={result[currentQA.questionId]}
                             onAnswerClick={onAnswerClick}
+                            status={true}
+                            hasAttempted={data.hasAttempted}
                         />
                     )}
                 </div>

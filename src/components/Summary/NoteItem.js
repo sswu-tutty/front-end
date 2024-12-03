@@ -9,16 +9,6 @@ import DeleteModal from "../DeleteModal";
 import { summaryTotalList, summaryBookmark } from "../../api/Summary";
 
 
-// correct: false
-// correctOption: 2
-// option1: "도메인 이름을 구매하는 것"\
-// option2: "도메인 이름을 IP 주소로 변환하는 것"
-// option3: "웹사이트의 보안을 강화하는 것"
-// option4: "인터넷 속도를 향상시키는 것"
-// questionId: 26
-// questionText: "도메인 이름 시스템(DNS)의 역할은 무엇인가요?"
-// selectedOption: null
-
 const NoteItem = ({ id, title, content, liked, setData, handleLike }) => {
     const [like, setLike] = useState(liked); // 초기 liked 값으로 설정
     const [isModalOpen, setIsModalOpen] = useState(false);

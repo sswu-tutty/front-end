@@ -1,55 +1,51 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect } from "react";
 import MyButton from "../MyButton";
 import QA from "./QA";
 import { useState } from "react";
-import { qamockdata } from "../../pages/QuizInquiry";
+import { quizResultDetail } from "../../api/Quiz";
 
-const resultCheck = [
-    {
-        id: 1,
-        correct: 1,
-        answers: 1
-    },
-    {
-        id: 2,
-        correct: 1,
-        answers: 2
-    },
-    {
-        id: 3,
-        correct: 4,
-        answers: 2
-    },
-    {
-        id: 4,
-        correct: 1,
-        answers: 1
-    },
-]
-
-
-const TrueStatus =() => {
-    const [pages, setPages] = useState(1); //현재 페이지수 & 문제 갯수
-
-    const lastPage = qamockdata.length;
-
+//퀴즈 응시된 상태(결과 확인)
+const TrueStatus = () => {
+    const { id } = useParams();
     const navigate = useNavigate();
 
-    const currentQA = qamockdata.find((qa) => qa.question.id === pages);
+    const [data, setData] = useState([]);
+    const [pages, setPages] = useState(0);
+    const [lastPage, setLastPage] = useState(4);
 
-    const checking = resultCheck.find((it) => it.id === pages);
+    // 퀴즈 풀기 결과 저장
+    const [result, setResult] = useState({}); 
+
+    const [currentQA, setCurrentQA] = useState(null);
+
+    useEffect(() => {
+        const fetchQuizResultDetail = async () => {
+            try {
+                const result = await quizResultDetail(id);
+                setData(result);
+            } catch (error) {
+                console.error("Failed to fetch quiz list:", error);
+            }
+        };
+
+        fetchQuizResultDetail();
+    }, [id]);
+
+    useEffect(() => {
+        if (data.questionResults && data.questionResults.length > 0) {
+            setCurrentQA(data.questionResults[pages]);
+        }
+    }, [pages, data]);
 
     const onPreviousPage = () => {
-        if (pages > 1) {
-            setPages(pages - 1);
-        }
-    }
+        setPages((prev) => Math.max(prev - 1, 0));
+    };
 
     const onNextPage = () => {
-        if (pages < lastPage) {
-            setPages(pages + 1);
-        }
-    }
+        setPages((prev) => Math.min(prev + 1, lastPage));
+    };
+
 
     const onExit = () => {
         navigate("/note")
@@ -59,6 +55,35 @@ const TrueStatus =() => {
         navigate("/note");
     }
 
+    const answers = currentQA
+        ? [
+            {
+                id: 1,
+                answer: currentQA.option1 || null,
+                selected: currentQA.selectedOption || null,
+                correct: currentQA.correctOption || null
+            },
+            {
+                id: 2,
+                answer: currentQA.option2 || null,
+                selected: currentQA.selectedOption || null,
+                correct: currentQA.correctOption || null
+            },
+            {
+                id: 3,
+                answer: currentQA.option3 || null,
+                selected: currentQA.selectedOption || null,
+                correct: currentQA.correctOption || null
+            },
+            {
+                id: 4,
+                answer: currentQA.option4 || null,
+                selected: currentQA.selectedOption || null,
+                correct: currentQA.correctOption || null
+            },
+        ]
+        : [];
+
     return (
         <div style={{}}>
             <div className="header">
@@ -66,18 +91,22 @@ const TrueStatus =() => {
                     인코더와 디코더의 개념
                 </div>
                 <div className="page_section">
-                 문제 확인 <br/> {pages} / {qamockdata.length}
+                    문제 확인 <br /> {pages + 1} / {lastPage + 1}
                 </div>
             </div>
             <div className="scroll_section">
                 <div className="qa_section">
                     {currentQA && (
-                        <QA checking={checking} question={currentQA.question} answers={currentQA.answers} />
+                        <QA currentQA={currentQA}
+                            answers={answers}
+                            selectedAnswer={result[currentQA.questionId]}
+                            hasAttempted={data.hasAttempted}
+                        />
                     )}
                 </div>
                 <div className="page_btn">
                     <div className="left_btn">
-                        {pages > 1 ? (
+                        {pages > 0 ? (
                             <MyButton onClick={onPreviousPage} type={"off"} text={"이전"} />
                         ) : (
                             <MyButton onClick={onExit} type={"off"} text={"나가기"} />
