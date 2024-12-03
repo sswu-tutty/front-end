@@ -4,6 +4,7 @@ import { useState } from "react";
 import Summary from "../components/Summary/Summary";
 import Quiz from "../components/Quiz/Quiz";
 import MyButton from "../components/MyButton";
+import Papers from "../components/Papers/Papers";
 
 const mockData = [
     {
@@ -53,7 +54,16 @@ const Note = () => {
             <div style={{ display: "flex", justifyContent: "flex-end", margin: "15px 20px" }}>
                 <MyButton type={"off"} text={"최신순"} />
             </div>
-            {activeTab === "summary" ? <Summary mockData={mockData} /> : <Quiz setActiveTab={setActiveTab}/>}
+            {
+                activeTab === "summary" ? (
+                    <Summary mockData={mockData} />
+                ) : activeTab === "quiz" ? (
+                    <Quiz setActiveTab={setActiveTab} />
+                ) : (
+                    <Papers setActiveTab={setActiveTab}/>
+                )
+            }
+
         </div>
     );
 }

@@ -6,7 +6,7 @@ import UnLike from "../../assets/unlike.png";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DeleteModal from "../DeleteModal";
-import { quizTotalList } from "../../api/Quiz";
+import { quizTotalList, quizBookmark } from "../../api/Quiz";
 
 const QuizItem = ({ quizId, firstQuestionText, totalQuestions, correctAnswers, hasAttempted, liked, setData }) => {
     const [like, setLike] = useState(false);
@@ -35,6 +35,11 @@ const QuizItem = ({ quizId, firstQuestionText, totalQuestions, correctAnswers, h
 
     };
 
+    const handleBookmark = () => {
+        console.log(quizId);
+        quizBookmark(quizId);
+    }
+
     return (
         <div className="QuizItem">
             <img onClick={goDetail} className="quiz_section" src={QuizImg} />
@@ -48,7 +53,7 @@ const QuizItem = ({ quizId, firstQuestionText, totalQuestions, correctAnswers, h
             </div>
             <div className="etc_section">
                 <img className="on_heart" onClick={handleKebab} src={Kebab} />
-                <img className="on_kebab" onClick={() => setLike(!like)} src={like ? Like : UnLike} />
+                <img className="on_kebab" onClick={handleBookmark} src={liked ? Like : UnLike} />
             </div>
             <DeleteModal
                 isModalOpen={isModalOpen}

@@ -3,7 +3,7 @@ import NoteItem from "./NoteItem";
 import { summaryTotalList, summaryBookmark } from "../../api/Summary";
 
 const Summary = () => {
-    // 전체 일기 저장 변수
+    // 전체 요약본 저장 변수
     const [data, setData] = useState([]);
     // 모달 메시지 상태
     const [modalMessage, setModalMessage] = useState("");
@@ -37,7 +37,7 @@ const Summary = () => {
     return (
         <div>
             {data.map((it) => (
-                <NoteItem key={it.id} {...it} setData={setData} handleLike={() => handleLike(it.id)} />
+                <NoteItem key={it.id} {...it} setData={setData} handleLike={() => handleLike(it.id)} status="요약"/>
             ))}
             {showModal && (
                 <div className="modal">

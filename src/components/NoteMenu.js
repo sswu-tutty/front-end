@@ -17,6 +17,12 @@ const NoteMenu = ({activeTab, setActiveTab}) => {
             >
                 퀴즈
             </div>
+            <div 
+                className={`tab ${activeTab === "papers" ? "active" : ""}`} 
+                onClick={() => setActiveTab("papers")}
+            >
+                논문
+            </div>
         </header>
     );
 };

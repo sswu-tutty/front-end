@@ -13,6 +13,7 @@ import QuizInquiry from './pages/QuizInquiry';
 import ScorePage from './pages/ScorePage';
 import ResultCheck from './pages/ResultCheck';
 import Bookmark from './pages/Bookmark';
+import PaperInquiry from './components/Papers/PaperInquiry';
 
 function App() {
   //로그인페이지 사용하고 싶으면 false로 변경후 사용
@@ -48,6 +49,7 @@ function App() {
                 <Route path="/scorepage" element={<ScorePage />} />
                 <Route path="/resultcheck/:id" element={<ResultCheck />} />
                 <Route path="/bookmark" element={<Bookmark />} />
+                <Route path="/paperinquiry/:id" element={<PaperInquiry />} />
               </Routes>
               <FooterBar />
             </div>
