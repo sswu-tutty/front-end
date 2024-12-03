@@ -9,14 +9,20 @@ import DeleteModal from "../DeleteModal";
 import { summaryTotalList, summaryBookmark } from "../../api/Summary";
 
 
-const NoteItem = ({ id, title, content, liked, setData, handleLike }) => {
+const NoteItem = ({ id, title, content, liked, setData, handleLike, status, paperTitle }) => {
     const [like, setLike] = useState(liked); // 초기 liked 값으로 설정
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const navigate = useNavigate();
 
     const goDetail = () => {
-        navigate(`/summaryinquiry/${id}`);
+        if(status === "요약") {
+            navigate(`/summaryinquiry/${id}`);
+        } else {
+            console.log("논문")
+            navigate(`/paperinquiry/${id}`);
+        }
+        
     };
 
     const handleKebab = () => {
@@ -36,7 +42,7 @@ const NoteItem = ({ id, title, content, liked, setData, handleLike }) => {
         <div className="NoteItem">
             <img onClick={goDetail} className="book_section" src={BookImg} alt="Book" />
             <div onClick={goDetail} className="title_section">
-                <div className="main_title">{title}</div>
+                <div className="main_title">{status === "요약" ? title : paperTitle}</div>
                 <div className="sub_title">{content.slice(0, 35)}</div>
             </div>
             <div className="etc_section">

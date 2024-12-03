@@ -1,5 +1,4 @@
 import instance from "./Axios";
-//import AsyncStorage from '@react-native-async-storage/async-storage';
 
 //퀴즈 결과(결과 전달)
 export const quizResult = async (quizId, result) => {

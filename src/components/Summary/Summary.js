@@ -37,7 +37,7 @@ const Summary = () => {
     return (
         <div>
             {data.map((it) => (
-                <NoteItem key={it.id} {...it} setData={setData} handleLike={() => handleLike(it.id)} />
+                <NoteItem key={it.id} {...it} setData={setData} handleLike={() => handleLike(it.id)} status="요약"/>
             ))}
             {showModal && (
                 <div className="modal">
