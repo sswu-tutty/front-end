@@ -4,7 +4,6 @@ import Back from "../../assets/back1.png";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { summaryDetailList } from "../../api/Summary";
-import { paperDetail } from "../../api/Papers";
 
 const UnEditing = ({ detail, setEditing, status }) => {
     const { id } = useParams();
@@ -27,21 +26,6 @@ const UnEditing = ({ detail, setEditing, status }) => {
         fetchSummaryDetailList(); 
     }, []); 
 
-    //논문 상세 조회
-    //요약본 상세조회
-    useEffect(() => {
-        const fetchPaperDetail = async () => {
-            try {
-                const result = await paperDetail(id);
-                setData(result);
-            } catch (error) {
-                console.error("Failed to fetch paper list:", error);
-            }
-        };
-
-        fetchPaperDetail();
-    }, []);
-
     const navigate = useNavigate(); 
 
     const handleBackClick = () => {
@@ -54,7 +38,7 @@ const UnEditing = ({ detail, setEditing, status }) => {
                 <img src={Back} />
                 <text>뒤로가기</text>
             </div>
-            <div className="title_part">{status === "논문" ? data.paperTitle : data.title}</div>
+            <div className="title_part">{data.title}</div>
             <div className="content_part">{data.content}</div>
             <img onClick={() => setEditing(true)} className="img_part" src={EditImg}/>
         </div>
