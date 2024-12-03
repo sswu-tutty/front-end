@@ -6,10 +6,11 @@ import "../components/styles/ScorePage.css";
 const ScorePage = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    const ids = location.state?.ids || [];
+    const id = location.state?.ids || [];
+    const { quiz_result } = location.state || {}; // 전달된 state에서 quiz_result 추출
 
     const CheckResult = () => {
-        navigate(`/resultcheck/${ids}`)
+        navigate(`/resultcheck/${id}`)
     }
 
     return (

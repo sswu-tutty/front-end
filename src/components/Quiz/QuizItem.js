@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import DeleteModal from "../DeleteModal";
 import { quizTotalList } from "../../api/Quiz";
 
-const QuizItem = ({ quizId, firstQuestionText, totalQuestions, correctCount, hasAttempted, liked, setData }) => {
+const QuizItem = ({ quizId, firstQuestionText, totalQuestions, correctAnswers, hasAttempted, liked, setData }) => {
     const [like, setLike] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -43,7 +43,7 @@ const QuizItem = ({ quizId, firstQuestionText, totalQuestions, correctCount, has
                     {firstQuestionText == null ? "제목" : firstQuestionText}
                 </div>
                 <div className={hasAttempted ? "sub_title_true" : "sub_title_false"}>
-                    {hasAttempted === false ? "미응시" : (correctCount / totalQuestions)}
+                    {hasAttempted === false ? "미응시" : (correctAnswers / totalQuestions)*100 + "점"}
                 </div>
             </div>
             <div className="etc_section">

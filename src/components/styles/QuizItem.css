@@ -1,8 +1,9 @@
 .QuizItem {
-    margin: 11px 20px;
+    margin: 17px 20px;
     border-bottom: 1px solid #C8C8C8;
     display: flex;
-    align-items: center;            
+    align-items: center;
+    padding-bottom: 5px;            
 }
 
 .quiz_section {
@@ -26,12 +27,12 @@
 
 .sub_title_true {
     color: #CE4949;
-    font-size: 13px;
+    font-size: 14px;
 }
 
 .sub_title_false {
     color: #aaaaaa;
-    font-size: 12px;
+    font-size: 13px;
 }
 
 .etc_section {
