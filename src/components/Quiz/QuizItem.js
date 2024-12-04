@@ -9,13 +9,10 @@ import DeleteModal from "../DeleteModal";
 import { quizTotalList, quizBookmark } from "../../api/Quiz";
 
 const QuizItem = ({ quizId, firstQuestionText, totalQuestions, correctAnswers, hasAttempted, liked, setData }) => {
-    const [like, setLike] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
-
-
     const navigate = useNavigate();
 
-    //여기 변경
+    //상세조회 페이지 이동
     const goDetail = () => {
         hasAttempted ? navigate(`/resultcheck/${quizId}`) : navigate(`/quizinquiry/${quizId}`);
     }
@@ -28,11 +25,11 @@ const QuizItem = ({ quizId, firstQuestionText, totalQuestions, correctAnswers, h
         setIsModalOpen(false)
     }
 
+    //노트 삭제시 전체 리스트 다시 조회
     const handleDeleteSuccess = async () => {
         setIsModalOpen(false);
         const result = await quizTotalList();
         setData(result);
-
     };
 
     const handleBookmark = () => {

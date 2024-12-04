@@ -6,6 +6,7 @@ const Papers = () => {
     // 전체 논문 저장 변수
     const [data, setData] = useState([]);
 
+    // 전체 논문 리스트 조회
     useEffect(() => {
         const fetchPaperList = async () => {
             try {
@@ -18,6 +19,7 @@ const Papers = () => {
 
         fetchPaperList();
     }, []);
+
     return (
         <div>
             {data.map((it) => (

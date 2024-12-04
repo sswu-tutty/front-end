@@ -19,6 +19,7 @@ const TrueStatus = () => {
 
     const [currentQA, setCurrentQA] = useState(null);
 
+    //퀴즈 결과 상세조회
     useEffect(() => {
         const fetchQuizResultDetail = async () => {
             try {

@@ -10,7 +10,7 @@ import { summaryTotalList, summaryBookmark } from "../../api/Summary";
 
 
 const NoteItem = ({ id, title, content, liked, setData, handleLike, status, paperTitle }) => {
-    const [like, setLike] = useState(liked); // 초기 liked 값으로 설정
+    const [like, setLike] = useState(liked); 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const navigate = useNavigate();
@@ -43,7 +43,7 @@ const NoteItem = ({ id, title, content, liked, setData, handleLike, status, pape
             <img onClick={goDetail} className="book_section" src={BookImg} alt="Book" />
             <div onClick={goDetail} className="title_section">
                 <div className="main_title">{status === "요약" ? title : paperTitle}</div>
-                <div className="sub_title">{content.slice(0, 35)}</div>
+                <div className="sub_title">{content.slice(0, 28)}</div>
             </div>
             <div className="etc_section">
                 <img className="on_kebab" onClick={handleKebab} src={Kebab} alt="Options" />

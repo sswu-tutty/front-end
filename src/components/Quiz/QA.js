@@ -4,7 +4,7 @@ import "../styles/QA.css";
 const QA = ({ currentQA, answers, selectedAnswer, onAnswerClick, correct, hasAttempted }) => {
 
     console.log("hasAttempted", hasAttempted)
-    // Helper function to calculate the classes for each answer
+    
     const getAnswerClass = (it) => {
         if(!hasAttempted) {
             if(selectedAnswer == it.id) {
@@ -42,7 +42,7 @@ const QA = ({ currentQA, answers, selectedAnswer, onAnswerClick, correct, hasAtt
                 {answers.map((it) => (
                     <div
                         key={it.id}
-                        className={getAnswerClass(it)} // Apply the class based on the helper function
+                        className={getAnswerClass(it)} 
                         onClick={() => handleClick(currentQA.questionId, it.id)}
                     >
                         <div className="answer_num">{it.id}.</div>

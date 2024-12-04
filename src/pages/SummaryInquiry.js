@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import UnEditing from "../components/Summary/UnEditing";
 import Editing from "../components/Summary/Editing"; 
-import { summaryDetailList } from "../api/Summary";
 
 const SummaryInquiry = () => {
     const { id } = useParams();
@@ -26,12 +25,10 @@ const SummaryInquiry = () => {
     // }, []); 
     
     const [editing, setEditing] = useState(false);
-   
 
     return (
         <div>
-            {editing ? <Editing detail={detail}  setEditing={setEditing}/> : <UnEditing detail={detail} setEditing={setEditing} />}
-            
+            {editing ? <Editing detail={detail}  setEditing={setEditing}/> : <UnEditing detail={detail} setEditing={setEditing} />}  
         </div>
     );
 }

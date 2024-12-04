@@ -10,7 +10,4 @@ const MyButton = ({ type, text, onClick }) => {
     );
 }
 
-
-
-
 export default MyButton;

@@ -5,10 +5,11 @@ import Back from "../../assets/back1.png";
 import { summaryEdit } from "../../api/Summary";
 import { summaryDetailList } from "../../api/Summary";
 
+//요약본 편집할 때
 const Editing = ({setEditing }) => {
     const { id } = useParams();
 
-    // 제목과 내용 상태 초기화
+    // 편집된 제목 & 내용
     const [editedTitle, setEditedTitle] = useState("");
     const [editedContent, setEditedContent] = useState("");
 
