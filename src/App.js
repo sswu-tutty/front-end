@@ -16,13 +16,17 @@ import Bookmark from './pages/Bookmark';
 import PaperInquiry from './components/Papers/PaperInquiry';
 
 function App() {
-  //로그인페이지 사용하고 싶으면 false로 변경후 사용
-  const [login, setLogin] = useState(true);
+  // 로컬스토리지에서 초기 로그인 상태 확인
+  const [login, setLogin] = useState(() => {
+    const storedLogin = localStorage.getItem('login');
+    return storedLogin === 'true'; // 문자열 "true"를 불린값 true로 변환
+  });
 
-  // login 값이 변경될 때마다 콘솔로 확인
   useEffect(() => {
     console.log('login 상태:', login);
+    localStorage.setItem('login', login); // login 상태 변경 시 로컬스토리지에 저장
   }, [login]);
+
 
   return (
     <div className='App'>
@@ -42,7 +46,7 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/imgupload" element={<ImgUpload />} />
                 <Route path="/note" element={<Note />} />
-                <Route path="/mypage" element={<MyPage />} />
+                <Route path="/mypage" element={<MyPage setLogin={setLogin} />} />
                 <Route path="*" element={<Navigate to="/" replace />} />
                 <Route path="/summaryinquiry/:id" element={<SummaryInquiry />} />
                 <Route path="/quizinquiry/:id" element={<QuizInquiry />} />

@@ -5,7 +5,7 @@ import profile from "../assets/profile.png"
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const MyPage = () => {
+const MyPage = ({setLogin}) => {
     const URL = 'http://52.78.72.117:8080';
     const [userName, setUserName] = useState("");
     const [error, setError] = useState("");
@@ -38,6 +38,12 @@ const MyPage = () => {
             setError("로그인 정보가 없습니다.");
         }
     }, []);
+
+    const handleLogout = () => {
+        setLogin(false);
+        localStorage.setItem('login', 'false'); // 로그인 상태 초기화
+        navigate('/login'); // 로그인 페이지로 이동
+      };      
 
 
     return (
@@ -72,7 +78,7 @@ const MyPage = () => {
                         <FaUserEdit className="menu-icon user-edit" />
                         <span>회원정보 수정</span>
                     </div>
-                    <div className="menu-item">
+                    <div className="menu-item" onClick={handleLogout}>
                         <FaSignOutAlt className="menu-icon logout" />
                         <span>로그아웃</span>
                     </div>
