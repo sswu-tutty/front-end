@@ -6,7 +6,7 @@
 }
 
 .question_section {
-    width: 480px;
+    width: 95%;
 }
 
 .question {
@@ -18,7 +18,7 @@
 }
 
 .answer_section {
-    width: 480px;
+    width: 95%;
     display: flex;
     flex-wrap: wrap;
     margin-top: 10px;
@@ -63,7 +63,7 @@
 }
 
 .correct-answer-section {
-    width: 480px;
+    width: 100%;
     text-align: right; /* Align text to the left */
     margin-top: 20px;
     margin-bottom: 20px;

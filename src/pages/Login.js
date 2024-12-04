@@ -42,6 +42,10 @@ const Login = ({ setLogin }) => {
         navigate('/Signup');
     }
 
+    useEffect(() => {
+        localStorage.setItem('login', false);
+    },[])
+
     // 시작 화면 로딩 상태를 2초 후에 해제
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -67,7 +71,7 @@ const Login = ({ setLogin }) => {
             const response = await axios.post(`${URL}/api/users/login`, userData);
             console.log('로그인 성공:', response.data);
             setLogin(true);
-
+            localStorage.setItem('login', 'true'); // 로그인 상태를 로컬스토리지에 저장
 
             // 토큰이 응답에 포함되어 있을 때
             if (response.data.token) {

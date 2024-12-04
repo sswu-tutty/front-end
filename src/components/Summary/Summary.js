@@ -12,11 +12,11 @@ const Summary = () => {
 
     const handleLike = (id) => {
         summaryBookmark(id);
-        if(data.id === id) {
+        if (data.id === id) {
             const isLiked = !data.liked;
             setModalMessage(isLiked ? "북마크가 설정되었습니다." : "북마크가 해제되었습니다.")
-            setShowModal(true); 
-                    setTimeout(() => setShowModal(false), 2000); 
+            setShowModal(true);
+            setTimeout(() => setShowModal(false), 2000);
         }
     };
 
@@ -35,15 +35,17 @@ const Summary = () => {
     }, []);
 
     return (
-        <div>
-            {data.map((it) => (
-                <NoteItem key={it.id} {...it} setData={setData} handleLike={() => handleLike(it.id)} status="요약"/>
-            ))}
-            {showModal && (
-                <div className="modal">
-                    {modalMessage}
-                </div>
-            )}
+        <div style={{ display: "flex", flexWrap: "wrap" }}>
+            <div style={{ overflow: "auto", maxHeight: "76vh", scrollbarWidth: "none", msOverflowStyle: "none" }}>
+                {data.map((it) => (
+                    <NoteItem key={it.id} {...it} setData={setData} handleLike={() => handleLike(it.id)} status="요약" />
+                ))}
+                {showModal && (
+                    <div className="modal">
+                        {modalMessage}
+                    </div>
+                )}
+            </div>
         </div>
     );
 };

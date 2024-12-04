@@ -16,6 +16,7 @@ export const quizResult = async (quizId, result) => {
             },
         );
         console.log("퀴즈 풀기 결과: ", response.data)
+        return response.data;
     } catch (error) {
         console.log("퀴즈 풀기 오류: ", error)
         throw error;
@@ -102,6 +103,7 @@ export const quizBookmark = async (quizId) => {
             },
         );
         console.log("퀴즈 북마크 결과: ", response.data)
+        return response.data;
     } catch (error) {
         console.log("퀴즈 북마크 오류: ", error)
         throw error;

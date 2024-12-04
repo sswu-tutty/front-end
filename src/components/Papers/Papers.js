@@ -21,12 +21,23 @@ const Papers = () => {
     }, []);
 
     return (
-        <div>
-            {data.map((it) => (
-                <NoteItem key={it.id} {...it} setData={setData} status="논문" />
-            ))}
+        <div style={{ display: "flex", justifyContent: "center", flexWrap: "wrap" }}>
+            <div
+                style={{
+                    overflow: "auto",
+                    maxHeight: "76vh",
+                    scrollbarWidth: "none",
+                    msOverflowStyle: "none",
+                    width: "100%" // 전체 너비를 채우도록 설정
+                }}
+            >
+                {data.map((it) => (
+                    <NoteItem key={it.id} {...it} setData={setData} status="논문" />
+                ))}
+            </div>
         </div>
-    )
+    );
+    
 }
 
 export default Papers;

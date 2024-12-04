@@ -21,18 +21,18 @@
 .main_title {
     color: #737373;
     font-weight: bold;
-    font-size: 17px;
+    font-size: 14px;
     margin-bottom: 7px;
 }
 
 .sub_title_true {
     color: #CE4949;
-    font-size: 14px;
+    font-size: 13px;
 }
 
 .sub_title_false {
     color: #aaaaaa;
-    font-size: 13px;
+    font-size: 11px;
 }
 
 .etc_section {
