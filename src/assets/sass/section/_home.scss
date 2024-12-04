@@ -6,7 +6,27 @@
     justify-content: flex-start;
     align-items: center;
     color: var(--black);
-    height: 100vh;
+    height: 82vh;
+
+    @media (max-height: 750px) {
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        color: var(--black);
+        height: 79vh;
+    }
+
+    @media (min-height: 1000px) {
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        color: var(--black);
+        height: 85vh;
+    }
 
 
     .home-container {
@@ -70,8 +90,8 @@
         display: flex;
         flex-direction: column;
         gap: 10px;
-        max-height: 70vh;
-        height: 70vh;
+        max-height: 150vh;
+        // height: 70vh;
         overflow-y: auto;
         width: 90%;
 
@@ -166,7 +186,7 @@
     /* 화면 너비가 768px 이하일 때 */
     @media (max-width: 650px) {
         .input-container {
-            width: 70%;
+            width: 85%;
             display: flex;
             align-items: center;
             padding: 10px;
