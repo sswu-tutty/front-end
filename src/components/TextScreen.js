@@ -1,10 +1,12 @@
-import React from 'react';
+import { React, useState } from 'react';
 import './styles/TextScreen.css';
 import axios from 'axios';
 
 const TextScreen = ({ text, quizOption, summaryOption }) => {
     const URL = 'http://52.78.72.117:8080';
     const token = localStorage.getItem("authToken");
+
+    const [isLoading, setIsLoading] = useState(false);
 
     // 논문 요약노트 생성 API 연결
     const addSummary = async () => {
@@ -15,8 +17,13 @@ const TextScreen = ({ text, quizOption, summaryOption }) => {
                 }
             });
             console.log('Summary:', response.data);
-            alert("요약노트 생성이 완료되었습니다.");
+
+            setIsLoading(false);
+            setTimeout(() => {
+                alert("퀴즈 생성이 완료되었습니다.");
+            }, 100);
         } catch (error) {
+            setIsLoading(false);
             console.error('Summary API 호출 오류:', error);
         }
     };
@@ -30,8 +37,13 @@ const TextScreen = ({ text, quizOption, summaryOption }) => {
                 }
             });
             console.log('Quiz:', response.data);
-            alert("퀴즈 생성이 완료되었습니다.");
+
+            setIsLoading(false);
+            setTimeout(() => {
+                alert("퀴즈 생성이 완료되었습니다.");
+            }, 100);
         } catch (error) {
+            setIsLoading(false);
             console.error('Quiz API 호출 오류:', error);
         }
     };
@@ -40,23 +52,35 @@ const TextScreen = ({ text, quizOption, summaryOption }) => {
     const handleComplete = () => {
         console.log('summary:', summaryOption)
         console.log('quiz:', quizOption)
+
+        // 로딩 상태로 전환
+        setIsLoading(true);
+
         if (quizOption) {
-            addQuiz(); // 퀴즈 생성
+            addQuiz();
         }
 
         if (summaryOption) {
-            addSummary(); // 요약본 생성
+            addSummary();
         }
     };
 
     return (
         <div className="text-screen">
-            <div className="btn-container">
-                <button className="complete-btn" onClick={handleComplete}>완료</button>
-            </div>
-            <div className='text-content'>
-                <p>{text}</p>
-            </div>
+            {isLoading ? (
+                <div className="loading-screen">
+                    <div className="spinner"></div>
+                </div>
+            ) : (
+                <>
+                    <div className="btn-container">
+                        <button className="complete-btn" onClick={handleComplete}>완료</button>
+                    </div>
+                    <div className='text-content'>
+                        <p>{text}</p>
+                    </div>
+                </>
+            )}
         </div>
     );
 };
