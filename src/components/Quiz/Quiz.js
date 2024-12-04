@@ -26,14 +26,16 @@ const Quiz = () => {
     }
 
     return (
-        <div>
-            {data.length > 0 ? (
-                data.map((it) => (
-                    <QuizItem key={it.quizId} {...it} setData={setData}/>
-                ))
-            ) : (
-                <div>퀴즈가 존재하지 않습니다.</div>  // 퀴즈 데이터가 없을 경우
-            )}
+        <div style={{ display: "flex", flexWrap: "wrap" }}>
+            <div style={{overflow: "auto", maxHeight: "76vh", scrollbarWidth: "none", msOverflowStyle: "none" }}>
+                {data.length > 0 ? (
+                    data.map((it) => (
+                        <QuizItem key={it.quizId} {...it} setData={setData} />
+                    ))
+                ) : (
+                    <div>퀴즈가 존재하지 않습니다.</div>  // 퀴즈 데이터가 없을 경우
+                )}
+            </div>
         </div>
     );
 };

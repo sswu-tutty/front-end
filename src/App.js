@@ -17,7 +17,7 @@ import PaperInquiry from './components/Papers/PaperInquiry';
 
 function App() {
   //로그인페이지 사용하고 싶으면 false로 변경후 사용
-  const [login, setLogin] = useState(false);
+  const [login, setLogin] = useState(true);
 
   // login 값이 변경될 때마다 콘솔로 확인
   useEffect(() => {
