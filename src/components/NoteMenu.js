@@ -1,4 +1,3 @@
-import { useState } from "react";
 import "./styles/NoteMenu.css";
 
 const NoteMenu = ({activeTab, setActiveTab}) => {

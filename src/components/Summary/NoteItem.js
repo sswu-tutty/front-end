@@ -10,7 +10,7 @@ import { summaryTotalList, summaryBookmark } from "../../api/Summary";
 
 
 const NoteItem = ({ id, title, content, liked, setData, handleLike, status, paperTitle }) => {
-    const [like, setLike] = useState(liked); // 초기 liked 값으로 설정
+    const [like, setLike] = useState(liked); 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const navigate = useNavigate();

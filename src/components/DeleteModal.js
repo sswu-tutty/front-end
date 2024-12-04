@@ -4,7 +4,6 @@ import { summaryDelete } from "../api/Summary";
 import { quizDelete } from "../api/Quiz";
 
 const DeleteModal = ({ isModalOpen, onClose, noteId, onDeleteSuccess, status }) => {
-
     
     const handleDelete = async () => {
         try {

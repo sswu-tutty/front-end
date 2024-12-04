@@ -10,16 +10,19 @@ const FalseStatus = () => {
     const { id } = useParams();
     const navigate = useNavigate();
 
+    //퀴즈 조회 결과
     const [data, setData] = useState([]);
+    //현재 페이지
     const [pages, setPages] = useState(0);
     const [lastPage, setLastPage] = useState(4);
-    // 퀴즈 풀기 결과 저장
+    // 퀴즈 풀기 결과 저장(정답저장)
     const [result, setResult] = useState({});
     console.log("문제 풀이 답안 확인", result)
 
-
+    //현재 풀고 있는 문제(Q&A)
     const [currentQA, setCurrentQA] = useState(null);
 
+    //퀴즈 상세조회
     useEffect(() => {
         const fetchQuizResultDetail = async () => {
             try {
@@ -33,6 +36,7 @@ const FalseStatus = () => {
         fetchQuizResultDetail();
     }, [id]);
 
+    //다음 페이지로 넘어갈때 문제,답변 업데이트
     useEffect(() => {
         if (data.questionResults && data.questionResults.length > 0) {
             setCurrentQA(data.questionResults[pages]);
@@ -85,7 +89,6 @@ const FalseStatus = () => {
         }
     };
     
-
     const answers = currentQA
         ? [
             {

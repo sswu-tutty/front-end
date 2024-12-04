@@ -6,13 +6,17 @@ import Back from "../../assets/back1.png";
 
 const PaperInquiry = () => {
     const { id } = useParams();
+    const navigate = useNavigate();
+    //조회된 논문 내용
     const [data, setData] = useState([]);
-    const navigate = useNavigate(); 
+
+    //뒤로가기
     const handleBackClick = () => {
-        navigate(-1); 
+        navigate(-1);
     };
-      //논문 상세 조회
-      useEffect(() => {
+
+    //논문 상세 조회
+    useEffect(() => {
         const fetchPaperDetail = async () => {
             try {
                 const result = await paperDetail(id);
@@ -24,19 +28,19 @@ const PaperInquiry = () => {
 
         fetchPaperDetail();
     }, []);
-    
+
 
     return (
         <div>
             <div className="UnEditing">
-            <div onClick={handleBackClick} className="back_btn">
-                <img src={Back} />
-                <text>뒤로가기</text>
+                <div onClick={handleBackClick} className="back_btn">
+                    <img src={Back} />
+                    <text>뒤로가기</text>
+                </div>
+                <div className="title_part">{data.paperTitle}</div>
+                <div className="content_part">{data.content}</div>
+                <img className="img_part" src={EditImg} />
             </div>
-            <div className="title_part">{data.paperTitle}</div>
-            <div className="content_part">{data.content}</div>
-            <img className="img_part" src={EditImg}/>
-        </div>
 
         </div>
     );
