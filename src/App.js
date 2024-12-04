@@ -46,7 +46,7 @@ function App() {
                 <Route path="*" element={<Navigate to="/" replace />} />
                 <Route path="/summaryinquiry/:id" element={<SummaryInquiry />} />
                 <Route path="/quizinquiry/:id" element={<QuizInquiry />} />
-                <Route path="/scorepage" element={<ScorePage />} />
+                <Route path="/scorepage/:id" element={<ScorePage />} />
                 <Route path="/resultcheck/:id" element={<ResultCheck />} />
                 <Route path="/bookmark" element={<Bookmark />} />
                 <Route path="/paperinquiry/:id" element={<PaperInquiry />} />

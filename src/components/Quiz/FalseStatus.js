@@ -82,7 +82,7 @@ const FalseStatus = () => {
             const quiz_result = await quizResult(id, result);
     
             // 결과를 state로 전달
-            navigate("/scorepage", { state: { quiz_result, id } });
+            navigate(`/scorepage/${id}`, { state: { quiz_result, id } });
         } catch (error) {
             console.error("Failed to submit quiz result:", error);
             alert("결과를 제출하는 중 오류가 발생했습니다.");
