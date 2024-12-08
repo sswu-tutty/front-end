@@ -13,6 +13,8 @@ const Home = () => {
     const [inputText, setInputText] = useState('');
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [chatroomId, setChatroomId] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
+
 
     const messagesEndRef = useRef(null);
 
@@ -51,7 +53,7 @@ const Home = () => {
             }
         }
     };
-    
+
 
     const handleInputChange = (e) => {
         setInputText(e.target.value);
@@ -111,14 +113,18 @@ const Home = () => {
 
     // 챗봇 내용 요약 api 연결
     const addSummary = async () => {
+        // 로딩 상태로 전환
+        setIsLoading(true);
         try {
             const response = await axios.post(`${URL}/api/notes/summary/${chatroomId}`, null, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
             });
-            console.log('Summary:', response.data);
-            alert("요약노트 생성이 완료되었습니다.")
+            setIsLoading(false);
+            setTimeout(() => {
+                alert("요약노트 생성이 완료되었습니다.");
+            }, 100);
         } catch (error) {
             console.error('Summary API 호출 오류:', error);
         }
@@ -126,70 +132,83 @@ const Home = () => {
 
     // 퀴즈 생성 api 연결
     const addQuiz = async () => {
+        // 로딩 상태로 전환
+        setIsLoading(true);
         try {
-            const response = await axios.post(`${URL}/api/quiz/generate/${chatroomId}`,null, {
+            const response = await axios.post(`${URL}/api/quiz/generate/${chatroomId}`, null, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
             });
-            console.log('Quiz:', response.data);
-            alert("퀴즈 생성이 완료되었습니다.")
+            setIsLoading(false);
+            setTimeout(() => {
+                alert("퀴즈 생성이 완료되었습니다.");
+            }, 100);
         } catch (error) {
             console.error('Quiz API 호출 오류:', error);
         }
     };
-    
+
     return (
         <div className="Home_wrap container">
-            <header className="header">
-                <img src={menu} className="menu-img" alt="Menu" onClick={toggleMenu} />
-                <div className='buttons'>
-                    {messages.length > 0 && (
-                        <>
-                            <button className='sum-message' onClick={addSummary}>요약본 생성</button>
-                            <button className='quiz-mesaage' onClick={addQuiz}>퀴즈 생성</button>
-                        </>
-                    )}
+            {isLoading ? (
+                <div className="loading-screen">
+                    <div className="spinner"></div>
                 </div>
-            </header>
+            ) : (
+                <>
+                    <header className="header">
+                        <img src={menu} className="menu-img" alt="Menu" onClick={toggleMenu} />
+                        <div className='buttons'>
+                            {messages.length > 0 && (
+                                <>
+                                    <button className='sum-message' onClick={addSummary}>요약본 생성</button>
+                                    <button className='quiz-mesaage' onClick={addQuiz}>퀴즈 생성</button>
+                                </>
+                            )}
+                        </div>
+                    </header>
 
-            <SideMenu
-                isOpen={isMenuOpen}
-                toggleMenu={toggleMenu}
-                messages={messages}
-                updateMessages={updateMessagesFromPreviousChat}
-            />
+                    <SideMenu
+                        isOpen={isMenuOpen}
+                        toggleMenu={toggleMenu}
+                        messages={messages}
+                        updateMessages={updateMessagesFromPreviousChat}
+                    />
 
-            <div className="chat-container">
-                {messages.length === 0 ? (
-                    <p className="no-messages">Tutty와 대화를 시작하세요.</p>
-                ) : (
-                    <div className="messages">
-                        {messages.map((msg, index) => (
-                            <div
-                                key={index}
-                                className={`message ${msg.sent ? 'sent' : 'received'}`}
-                            >
-                                {msg.text}
+                    <div className="chat-container">
+                        {messages.length === 0 ? (
+                            <p className="no-messages">Tutty와 대화를 시작하세요.</p>
+                        ) : (
+                            <div className="messages">
+                                {messages.map((msg, index) => (
+                                    <div
+                                        key={index}
+                                        className={`message ${msg.sent ? 'sent' : 'received'}`}
+                                    >
+                                        {msg.text}
+                                    </div>
+                                ))}
+                                <div ref={messagesEndRef} />
                             </div>
-                        ))}
-                        <div ref={messagesEndRef} />
+                        )}
                     </div>
-                )}
-            </div>
 
-            <div className="input-container">
-                <textarea
-                    value={inputText}
-                    onChange={handleInputChange}
-                    rows="1"
-                    placeholder="메시지 보내기"
-                    style={{ resize: "none", overflow: "hidden" }}
-                />
-                <img src={send} onClick={addMessage} alt="Send" />
-            </div>
+                    <div className="input-container">
+                        <textarea
+                            value={inputText}
+                            onChange={handleInputChange}
+                            rows="1"
+                            placeholder="메시지 보내기"
+                            style={{ resize: "none", overflow: "hidden" }}
+                        />
+                        <img src={send} onClick={addMessage} alt="Send" />
+                    </div>
 
-            <FooterBar />
+                    <FooterBar />
+                </>
+            )}
+
         </div>
     );
 };
