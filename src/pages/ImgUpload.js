@@ -28,13 +28,14 @@ const ImgUpload = () => {
     };
 
     const handleConfirm = async () => {
+
+        // 로딩 상태로 전환
+        setIsLoading(true);
+
         if (selectedFile) {
             const base64Image = await convertFileToBase64(selectedFile);
             await callOCRApi(base64Image);
         }
-
-        // 로딩 상태로 전환
-        setIsLoading(true);
 
         // 2초 후 로딩 해제 및 텍스트 화면으로 전환
         setTimeout(() => {
