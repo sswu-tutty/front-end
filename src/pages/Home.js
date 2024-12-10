@@ -4,6 +4,8 @@ import menu from "../assets/menu.png";
 import send from "../assets/send.png";
 import SideMenu from '../components/SideMenu';
 import axios from 'axios';
+import { DotLottieReact } from '@lottiefiles/dotlottie-react';
+
 
 const Home = () => {
     const URL = 'http://54.180.8.46:8080';
@@ -14,6 +16,7 @@ const Home = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [chatroomId, setChatroomId] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
+    const [isReceiving, setIsReceiving] = useState(false);
 
 
     const messagesEndRef = useRef(null);
@@ -90,6 +93,7 @@ const Home = () => {
 
     // 챗봇 대화 api 연결
     const callChatbotAPI = async (question) => {
+        setIsReceiving(true); // 로딩 시작
         try {
             const response = await axios.post(`${URL}/api/ask`, new URLSearchParams({
                 'chatroomId': chatroomId.toString(),
@@ -108,6 +112,8 @@ const Home = () => {
             ]);
         } catch (error) {
             console.error('API 호출 오류:', error);
+        } finally {
+            setIsReceiving(false); // 로딩 종료
         }
     };
 
@@ -189,6 +195,20 @@ const Home = () => {
                                         {msg.text}
                                     </div>
                                 ))}
+                                {isReceiving && (
+                                    <div className="message loading">
+                                        <DotLottieReact
+                                            src="https://lottie.host/c99a367e-0c5a-413c-8780-6f05be333fae/TCQnldO4b4.json"
+                                            loop
+                                            autoplay
+                                            // style={{
+                                            //     width: "100px",
+                                            //     height: "55px",
+                                            //     backgroundColor: "#F1F1F1"
+                                            // }}
+                                        />
+                                    </div>
+                                )}
                                 <div ref={messagesEndRef} />
                             </div>
                         )}
