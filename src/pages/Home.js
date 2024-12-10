@@ -52,6 +52,13 @@ const Home = () => {
                     { text: inputText, sent: true }
                 ]);
                 setInputText('');
+                
+                // textarea height 초기화
+                const textarea = document.querySelector('.input-container textarea');
+                if (textarea) {
+                    textarea.style.height = 'auto';
+                }
+
                 callChatbotAPI(inputText);
             }
         }
@@ -201,11 +208,6 @@ const Home = () => {
                                             src="https://lottie.host/c99a367e-0c5a-413c-8780-6f05be333fae/TCQnldO4b4.json"
                                             loop
                                             autoplay
-                                            // style={{
-                                            //     width: "100px",
-                                            //     height: "55px",
-                                            //     backgroundColor: "#F1F1F1"
-                                            // }}
                                         />
                                     </div>
                                 )}
