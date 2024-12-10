@@ -4,7 +4,7 @@ import axios from 'axios';
 
 
 const Signup = () => {
-    const URL = 'http://52.78.72.117:8080';
+    const URL = 'http://54.180.8.46:8080';
     const [email, setEmail] = useState('');
     const [inputValue, setInputValue] = useState('');
     const [inputName, setInputName] = useState('');

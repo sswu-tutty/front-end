@@ -6,7 +6,7 @@ import SideMenu from '../components/SideMenu';
 import axios from 'axios';
 
 const Home = () => {
-    const URL = 'http://52.78.72.117:8080';
+    const URL = 'http://54.180.8.46:8080';
     const token = localStorage.getItem("authToken");
 
     const [messages, setMessages] = useState([]);
