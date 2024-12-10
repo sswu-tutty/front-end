@@ -5,7 +5,7 @@ import Start from "../components/Start";
 import axios from 'axios';
 
 const Login = ({ setLogin }) => {
-    const URL = 'http://52.78.72.117:8080';
+    const URL = 'http://54.180.8.46:8080';
     const [email, setEmain] = useState('')
     const [inputValue, setInputValue] = useState('');
     const [full, setFull] = useState(false);

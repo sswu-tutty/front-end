@@ -3,7 +3,7 @@ import './styles/TextScreen.css';
 import axios from 'axios';
 
 const TextScreen = ({ text, quizOption, summaryOption }) => {
-    const URL = 'http://52.78.72.117:8080';
+    const URL = 'http://54.180.8.46:8080';
     const token = localStorage.getItem("authToken");
 
     const [isLoading, setIsLoading] = useState(false);

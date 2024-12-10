@@ -4,7 +4,7 @@ import './styles/SideMenu.css';
 import prev_btn from '../assets/previous_btn.png';
 
 const SideMenu = ({ isOpen, toggleMenu, messages, updateMessages }) => {
-    const URL = 'http://52.78.72.117:8080';
+    const URL = 'http://54.180.8.46:8080';
     const token = localStorage.getItem("authToken");
 
     const [previousChats, setPreviousChats] = useState([]);

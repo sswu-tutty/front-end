@@ -4,9 +4,11 @@ import menu from "../assets/menu.png";
 import send from "../assets/send.png";
 import SideMenu from '../components/SideMenu';
 import axios from 'axios';
+import { DotLottieReact } from '@lottiefiles/dotlottie-react';
+
 
 const Home = () => {
-    const URL = 'http://52.78.72.117:8080';
+    const URL = 'http://54.180.8.46:8080';
     const token = localStorage.getItem("authToken");
 
     const [messages, setMessages] = useState([]);
@@ -14,6 +16,7 @@ const Home = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [chatroomId, setChatroomId] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
+    const [isReceiving, setIsReceiving] = useState(false);
 
 
     const messagesEndRef = useRef(null);
@@ -49,6 +52,13 @@ const Home = () => {
                     { text: inputText, sent: true }
                 ]);
                 setInputText('');
+                
+                // textarea height 초기화
+                const textarea = document.querySelector('.input-container textarea');
+                if (textarea) {
+                    textarea.style.height = 'auto';
+                }
+
                 callChatbotAPI(inputText);
             }
         }
@@ -90,6 +100,7 @@ const Home = () => {
 
     // 챗봇 대화 api 연결
     const callChatbotAPI = async (question) => {
+        setIsReceiving(true); // 로딩 시작
         try {
             const response = await axios.post(`${URL}/api/ask`, new URLSearchParams({
                 'chatroomId': chatroomId.toString(),
@@ -108,6 +119,8 @@ const Home = () => {
             ]);
         } catch (error) {
             console.error('API 호출 오류:', error);
+        } finally {
+            setIsReceiving(false); // 로딩 종료
         }
     };
 
@@ -189,6 +202,15 @@ const Home = () => {
                                         {msg.text}
                                     </div>
                                 ))}
+                                {isReceiving && (
+                                    <div className="message loading">
+                                        <DotLottieReact
+                                            src="https://lottie.host/c99a367e-0c5a-413c-8780-6f05be333fae/TCQnldO4b4.json"
+                                            loop
+                                            autoplay
+                                        />
+                                    </div>
+                                )}
                                 <div ref={messagesEndRef} />
                             </div>
                         )}
