@@ -8,7 +8,7 @@ import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 
 
 const Home = () => {
-    const URL = 'http://54.180.8.46:8080';
+    const URL = 'https://jouuu.shop';
     const token = localStorage.getItem("authToken");
 
     const [messages, setMessages] = useState([]);

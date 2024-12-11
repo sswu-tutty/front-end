@@ -6,7 +6,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const MyPage = ({setLogin}) => {
-    const URL = 'http://54.180.8.46:8080';
+    const URL = 'https://jouuu.shop';
     const [userName, setUserName] = useState("");
     const [error, setError] = useState("");
     const navigate = useNavigate();
