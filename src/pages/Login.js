@@ -5,7 +5,8 @@ import Start from "../components/Start";
 import axios from 'axios';
 
 const Login = ({ setLogin }) => {
-    const URL = 'http://54.180.8.46:8080';
+    const URL = 'https://jouuu.shop';
+
     const [email, setEmain] = useState('')
     const [inputValue, setInputValue] = useState('');
     const [full, setFull] = useState(false);
@@ -44,7 +45,7 @@ const Login = ({ setLogin }) => {
 
     useEffect(() => {
         localStorage.setItem('login', false);
-    },[])
+    }, [])
 
     // 시작 화면 로딩 상태를 2초 후에 해제
     useEffect(() => {
@@ -68,6 +69,7 @@ const Login = ({ setLogin }) => {
         };
 
         try {
+            console.log(URL)
             const response = await axios.post(`${URL}/api/users/login`, userData);
             console.log('로그인 성공:', response.data);
             setLogin(true);
