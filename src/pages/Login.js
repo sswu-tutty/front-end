@@ -10,7 +10,7 @@ const Login = ({ setLogin }) => {
     const URL =
         window.location.hostname === "localhost"
             ? 'http://54.180.8.46:8080'
-            : ''; // Netlify에서는 "/api"를 사용
+            : '/api'; // Netlify에서는 "/api"를 사용
 
     const [email, setEmain] = useState('')
     const [inputValue, setInputValue] = useState('');
@@ -74,6 +74,7 @@ const Login = ({ setLogin }) => {
         };
 
         try {
+            console.log(URL)
             const response = await axios.post(`${URL}/api/users/login`, userData);
             console.log('로그인 성공:', response.data);
             setLogin(true);
