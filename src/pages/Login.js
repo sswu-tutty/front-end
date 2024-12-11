@@ -6,11 +6,6 @@ import axios from 'axios';
 
 const Login = ({ setLogin }) => {
     const URL = 'https://jouuu.shop';
-    // Netlify 배포와 로컬 환경에 따라 동적으로 URL 설정
-    // const URL =
-    //     window.location.hostname === "localhost"
-    //         ? 'http://54.180.8.46:8080'
-    //         : '/api'; // Netlify에서는 "/api"를 사용
 
     const [email, setEmain] = useState('')
     const [inputValue, setInputValue] = useState('');
