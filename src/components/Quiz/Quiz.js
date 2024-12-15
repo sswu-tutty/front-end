@@ -27,7 +27,7 @@ const Quiz = () => {
 
     return (
         <div style={{ display: "flex", flexWrap: "wrap" }}>
-            <div style={{overflow: "auto", maxHeight: "76vh", scrollbarWidth: "none", msOverflowStyle: "none" }}>
+            <div style={{width: "100%",overflow: "auto", maxHeight: "76vh", scrollbarWidth: "none", msOverflowStyle: "none" }}>
                 {data.length > 0 ? (
                     data.map((it) => (
                         <QuizItem key={it.quizId} {...it} setData={setData} />
