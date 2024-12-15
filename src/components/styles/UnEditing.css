@@ -22,15 +22,22 @@
     margin: 25px 0px;
     color: #535353;
     font-weight: bold;
+    max-height: 100px; /* 스크롤 가능한 최대 높이 지정 */
+    overflow-y: auto; /* 세로 스크롤 활성화 */
 }
 
 .content_part {
     margin-bottom: 10px;
-    height: 700px;
+    height: 65vh; /* 원하는 높이로 설정 */
     font-size: 14px;
     color: #535353;
     line-height: 2;
+    overflow-y: auto; /* 세로 스크롤 활성화 */
+    padding-right: 10px; /* 스크롤바와 텍스트 간격 */
+    box-sizing: border-box; /* 패딩 포함 크기 계산 */
+    scrollbar-width: none;
 }
+
 
 .img_part {
     position: absolute; 

@@ -36,7 +36,7 @@ const Summary = () => {
 
     return (
         <div style={{ display: "flex", flexWrap: "wrap" }}>
-            <div style={{ overflow: "auto", maxHeight: "76vh", scrollbarWidth: "none", msOverflowStyle: "none" }}>
+            <div style={{ overflow: "auto", maxHeight: "76vh", scrollbarWidth: "none", msOverflowStyle: "none", width: "100%" }}>
                 {data.map((it) => (
                     <NoteItem key={it.id} {...it} setData={setData} handleLike={() => handleLike(it.id)} status="요약" />
                 ))}

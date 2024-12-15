@@ -74,13 +74,13 @@ const FalseStatus = () => {
             alert("답안이 모두 선택되지 않았습니다.");
             return;
         }
-    
+
         try {
             console.log("최종 선택 결과:", result);
-    
+
             // quizResult 비동기 호출
             const quiz_result = await quizResult(id, result);
-    
+
             // 결과를 state로 전달
             navigate(`/scorepage/${id}`, { state: { quiz_result, id } });
         } catch (error) {
@@ -88,7 +88,7 @@ const FalseStatus = () => {
             alert("결과를 제출하는 중 오류가 발생했습니다.");
         }
     };
-    
+
     const answers = currentQA
         ? [
             {
@@ -128,36 +128,39 @@ const FalseStatus = () => {
                     퀴즈 풀기 <br /> {pages + 1} / {lastPage + 1}
                 </div>
             </div>
-            <div className="scroll_section">
-                <div className="qa_section">
-                    {currentQA && (
-                        <QA
-                            currentQA={currentQA}
-                            answers={answers}
-                            selectedAnswer={result[currentQA.questionId]}
-                            onAnswerClick={onAnswerClick}
-                            status={true}
-                            hasAttempted={data.hasAttempted}
-                        />
-                    )}
-                </div>
-                <div className="page_btn">
-                    <div className="left_btn">
-                        {pages > 0 ? (
-                            <MyButton onClick={onPreviousPage} type={"off"} text={"이전"} />
-                        ) : (
-                            <MyButton onClick={onExit} type={"off"} text={"나가기"} />
+            <div className="upper_section">
+                <div className="scroll_section">
+                    <div className="qa_section">
+                        {currentQA && (
+                            <QA
+                                currentQA={currentQA}
+                                answers={answers}
+                                selectedAnswer={result[currentQA.questionId]}
+                                onAnswerClick={onAnswerClick}
+                                status={true}
+                                hasAttempted={data.hasAttempted}
+                            />
                         )}
                     </div>
-                    <div className="right_btn">
-                        {pages < lastPage ? (
-                            <MyButton onClick={onNextPage} type={"on"} text={"다음"} />
-                        ) : (
-                            <MyButton onClick={onSubmit} type={"on"} text={"제출"} />
-                        )}
+                    <div className="page_btn">
+                        <div className="left_btn">
+                            {pages > 0 ? (
+                                <MyButton onClick={onPreviousPage} type={"off"} text={"이전"} />
+                            ) : (
+                                <MyButton onClick={onExit} type={"off"} text={"나가기"} />
+                            )}
+                        </div>
+                        <div className="right_btn">
+                            {pages < lastPage ? (
+                                <MyButton onClick={onNextPage} type={"on"} text={"다음"} />
+                            ) : (
+                                <MyButton onClick={onSubmit} type={"on"} text={"제출"} />
+                            )}
+                        </div>
                     </div>
                 </div>
             </div>
+
         </div>
     );
 };
