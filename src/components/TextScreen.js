@@ -20,7 +20,7 @@ const TextScreen = ({ text, quizOption, summaryOption }) => {
 
             setIsLoading(false);
             setTimeout(() => {
-                alert("퀴즈 생성이 완료되었습니다.");
+                alert("요약본 생성이 완료되었습니다.");
             }, 100);
         } catch (error) {
             setIsLoading(false);
