@@ -122,7 +122,6 @@ const FalseStatus = () => {
         <div className="FalseStatus">
             <div className="header">
                 <div className="title">
-                    {currentQA ? currentQA.questionText : "Loading..."}
                 </div>
                 <div className="page_section">
                     퀴즈 풀기 <br /> {pages + 1} / {lastPage + 1}

@@ -14,6 +14,7 @@ const TrueStatus = () => {
     const [pages, setPages] = useState(0);
     const [lastPage, setLastPage] = useState(4);
 
+    console.log("data",data);
     // 퀴즈 풀기 결과 저장
     const [result, setResult] = useState({}); 
 
@@ -89,7 +90,7 @@ const TrueStatus = () => {
         <div style={{}}>
             <div className="header">
                 <div className="title">
-                    인코더와 디코더의 개념
+                    
                 </div>
                 <div className="page_section">
                     문제 확인 <br /> {pages + 1} / {lastPage + 1}
