@@ -51,7 +51,7 @@
 
 .scroll_section {
     overflow-y: auto; /* 수직 스크롤 활성화 */
-    max-height: 70vh; /* 스크롤 가능한 최대 높이 지정 */
+    max-height: 77vh; /* 스크롤 가능한 최대 높이 지정 */
     padding: 16px; /* 내부 여백 */
     box-sizing: border-box; /* 패딩을 포함한 박스 크기 */
     scrollbar-width: none;
