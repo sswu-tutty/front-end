@@ -5,6 +5,9 @@ import uploadIcon from '../assets/upload_img.png';
 import Modal from '../components/ImgModal';
 import TextScreen from '../components/TextScreen';
 
+const ocr_secretkey = process.env.REACT_APP_SECRET_KEY;
+const ocr_apiurl = process.env.REACT_APP_APIURL;
+
 const ImgUpload = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [quizOption, setQuizOption] = useState(false);
@@ -54,8 +57,8 @@ const ImgUpload = () => {
     };
 
     const callOCRApi = async (base64Image) => {
-        const apiUrl = 'https://s9uo8hlhlf.apigw.ntruss.com/custom/v1/36012/f9e520a521f592693af176d36451426be6d8385580b367ef22bb63e6f3297dd8/general';
-        const secretKey = 'VFZKdnByanlUZFJsa0tVR1JsUUhwS0daYnFrTkF5WkY=';
+        const apiUrl = ocr_apiurl;
+        const secretKey = ocr_secretkey;
 
         try {
             const response = await axios.post(
